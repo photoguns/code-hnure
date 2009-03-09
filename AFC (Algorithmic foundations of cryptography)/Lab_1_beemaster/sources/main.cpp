@@ -21,7 +21,7 @@
 int main ()
 {
     // Two long numbers
-	const mpz_class P ("0x9df3ef1d39b8708c11a20acc5d45c7\
+    const mpz_class P ("0x9df3ef1d39b8708c11a20acc5d45c7\
                        fccc61f6d231fe7bd370cd54cea9bd6e9\
                        ba4dba9147f6e28539551dc2cb09152ec\
                        7249bb52ffbc3bccedb374f56f18544d");
@@ -66,5 +66,5 @@ int main ()
     assert(encryptedMsg == message);
 
     // Exit
-	return 0;
+    return 0;
 }
