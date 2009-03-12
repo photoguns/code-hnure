@@ -63,7 +63,7 @@ int main ()
     rsa.Decrypt(decryptedMsg, encryptedMsg, privateKey, mod);
 
     // Check
-    assert(encryptedMsg == message);
+    assert(decryptedMsg == message);
 
     // Exit
     return 0;
