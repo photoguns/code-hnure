@@ -11,7 +11,7 @@
 
 
 /** C++ class for RSA encryption/decryption
-*       [TODO]: Inverse numbers computation by chain fractions algorithm
+*       Inverse numbers computation by chain fractions algorithm
 *
 *  @author  Roman Pasechnik
 *  @since   March 4th, 2009
