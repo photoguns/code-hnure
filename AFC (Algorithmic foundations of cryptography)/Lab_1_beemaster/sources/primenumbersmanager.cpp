@@ -87,6 +87,10 @@ void PrimeNumbersManager::GenerateRandom( mpz_class& _num, unsigned long _length
 
 bool PrimeNumbersManager::IsPrime ( const mpz_class& _num )
 {
+    // 0 is not a prime
+    if (_num == 0)
+        return false;
+
     // Check divisibility by small primes first
     if ( IsDivisibleBySmallPrime(_num) )
         return false;
@@ -107,6 +111,8 @@ bool PrimeNumbersManager::IsPrime ( const mpz_class& _num )
         // Generate random: 1 < witnessOfPrime < _num
         mpz_class rnd;
         GenerateRandom(rnd, _num);
+        if (rnd == 0)
+            ++rnd;
 
         // Calculate poweredRnd = rnd^quotient(mod _number)
         mpz_class poweredRnd;
