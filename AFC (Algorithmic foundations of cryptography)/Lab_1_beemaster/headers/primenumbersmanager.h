@@ -62,8 +62,8 @@ private:
 ////////////////////////////////////////////////////////////////////////////////
 
 
-    /* Checks if number is divisible by any of small primes */
-    bool IsDivisibleBySmallPrime ( const mpz_class& _num ) const;
+    /* Checks if _num is divisible by any of small primes, and saves quotient */
+    bool IsDivisibleBySmallPrime ( mpz_class& _quotient, const mpz_class& _num );
 
 
 ////////////////////////////////////////////////////////////////////////////////

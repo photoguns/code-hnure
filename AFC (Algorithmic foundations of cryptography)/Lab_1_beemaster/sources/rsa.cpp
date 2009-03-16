@@ -4,7 +4,7 @@
 
 #include "rsa.h"
 #include <vector>
-#include "math.h"
+#include <cmath>
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -37,10 +37,12 @@ void RSA::GenerateKeys( mpz_class& _publicKey, mpz_class& _privateKey, mpz_class
     // Euler's function EF(_mod) */
     const mpz_class EF = ( P - 1 ) * ( Q - 1 );
 
+    // GCD of EF and _publicKey
+    mpz_class gcd;
     do
     {
         // Generate random number
-        m_PrimeNumbersManager.GeneratePrime(_publicKey, EF);
+        m_PrimeNumbersManager.GenerateRandom(_publicKey, EF);
     }
     // Until it has an inverse number
     while ( !Inverse(_privateKey, _publicKey, EF) );
@@ -54,6 +56,7 @@ void RSA::Encrypt( mpz_class& _encryptedMsg, const mpz_class& _msg, const mpz_cl
 {
     // Encrypt message: _encryptedMsg = _msg ^ _publicKey ( mod _mod )
     BlockPowering(_encryptedMsg, _msg, _publicKey, _mod);
+    //mpz_powm( _encryptedMsg.get_mpz_t(), _msg.get_mpz_t(), _publicKey.get_mpz_t(), _mod.get_mpz_t() );
 }
 
 
@@ -91,7 +94,7 @@ int RSA::Inverse( mpz_class& _invNum, const mpz_class& _num, const mpz_class& _m
     // s0
     mpz_class remainder;
     // a_n-1, a_n-2
-    mpz_class invNum_1, invNum_2;
+    mpz_class a_n_1, a_n_2;
 
     int counter = 0;
     while ( true )
@@ -103,8 +106,21 @@ int RSA::Inverse( mpz_class& _invNum, const mpz_class& _num, const mpz_class& _m
                      divisor.get_mpz_t() );
 
         if (remainder == 0)
-            // Exit
-            return counter;
+        {
+            // GCD is 1
+            if (divisor == 1)
+            {
+                // y = (-1)^n * a_n_1
+                if (counter % 2)
+                {
+                    _invNum = -_invNum;
+                    _invNum += _mod;
+                }
+                return counter;
+            }
+            // GCD is not 1
+            return 0;
+        }
         else
         {
             switch (counter)
@@ -114,15 +130,15 @@ int RSA::Inverse( mpz_class& _invNum, const mpz_class& _num, const mpz_class& _m
                 _invNum = quotient;
         	    break;
             case 1:
+                a_n_1 = _invNum;
                 // a1 = r1*r0 + 1
                 _invNum = quotient * _invNum + 1;
-                invNum_1 = 1;
                 break;
             default:
-                invNum_2 = invNum_1;
-                invNum_1 = _invNum;
+                a_n_2 = a_n_1;
+                a_n_1 = _invNum;
                 // a_n = r_n * a_n-1 + a_n-2
-                _invNum = quotient * invNum_1 + invNum_2;
+                _invNum = quotient * a_n_1 + a_n_2;
                 break;
             }
 
@@ -165,7 +181,7 @@ void RSA::BlockPowering( mpz_class& _result, const mpz_class& _base, const mpz_c
                   _mod.get_mpz_t() );
 
     // Fetch expTable (calculate elements of the expression)
-    // e.g. _exp = expTable[2] * 2^8 + expTable[1] * 2^4 + expTable[0] * 1
+    // e.g. _exp = expTable[2] * 2^8 + expTable[1] * 2^4 + expTable[0] * 2^0
     mpz_class quotient;
     mpz_class remainder = _exp;
     for ( ULVec::reverse_iterator rit = expTable.rbegin();

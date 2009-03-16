@@ -87,13 +87,14 @@ void PrimeNumbersManager::GenerateRandom( mpz_class& _num, unsigned long _length
 
 bool PrimeNumbersManager::IsPrime ( const mpz_class& _num )
 {
-    // 0 is not a prime
-    if (_num == 0)
+    // 0 and 1 are not primes
+    if (_num == 0 || _num == 1)
         return false;
 
     // Check divisibility by small primes first
-    if ( IsDivisibleBySmallPrime(_num) )
-        return false;
+    mpz_class quotient;
+    if ( IsDivisibleBySmallPrime(quotient, _num) )
+        return quotient == 1;
 
     // Calculate number - 1
     mpz_class numWithoutOne = _num - 1;
@@ -103,7 +104,6 @@ bool PrimeNumbersManager::IsPrime ( const mpz_class& _num )
     while ( mpz_divisible_2exp_p(numWithoutOne.get_mpz_t(), powerOfTwo + 1) )
         powerOfTwo++;
 
-    mpz_class quotient;
     mpz_tdiv_q_2exp(quotient.get_mpz_t(), numWithoutOne.get_mpz_t(), powerOfTwo);
 
     for (unsigned long i = 0; i < m_Rounds; ++i)
@@ -155,12 +155,15 @@ bool PrimeNumbersManager::IsPrime ( const mpz_class& _num )
 ////////////////////////////////////////////////////////////////////////////////
 
 
-bool PrimeNumbersManager::IsDivisibleBySmallPrime( const mpz_class& _num ) const
+bool PrimeNumbersManager::IsDivisibleBySmallPrime( mpz_class& _quotient, const mpz_class& _num )
 {
     for ( int i = 0; i < sizeof(m_SmallPrimes) / sizeof (unsigned long); ++i )
     {
         if ( mpz_divisible_ui_p( _num.get_mpz_t(), m_SmallPrimes[i] ) )
+        {
+            mpz_divexact_ui( _quotient.get_mpz_t(), _num.get_mpz_t(), m_SmallPrimes[i] );
             return true;
+        }
     }
     return false;
 }
