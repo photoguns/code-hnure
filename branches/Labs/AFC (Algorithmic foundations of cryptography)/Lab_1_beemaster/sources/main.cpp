@@ -35,7 +35,7 @@ int main ()
               << "Q = " << Q.get_str() << std::endl;
  
     // Number of rounds in Miller-Rabin test
-    const unsigned long rounds = 100;
+    const unsigned long rounds = 1000;
 
     // Create prime numbers manager
     PrimeNumbersManager primeManager(rounds);
