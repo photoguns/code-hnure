@@ -1,14 +1,15 @@
 ﻿#include <iostream>
 #include <fstream>
+#include <windows.h>
 
 using namespace std;
 
 #define MAX_PATH 260
 
-void reqestFileOpen(char *,fstream &,bool nc=1);
+void reqestFileOpen(char *,fstream &);
 
 int main (int argc,char *argv) {
-	/*int offset=0, width=0, height=0, c=0, i=0;
+	int offset=0, width=0, height=0, c=0, i=0;
 	char buf[8], lett, buff, mode[3];
 	while(1) {
 		cout<<"Code/Decode/Exit?(C/D/E)";
@@ -24,16 +25,21 @@ int main (int argc,char *argv) {
 
 			reqestFileOpen("Input message filename(*.txt): ",filem);
 
-			reqestFileOpen("Input output filename(*.bmp): ",fileo,0);
+			reqestFileOpen("Input output filename(*.bmp): ",fileo);
 
-			file.seekg(10);
-			file.read(buf,4);
-			offset=(buf[3]<<3*8)+(buf[2]<<2*8)+(buf[1]<<8)+buf[0];
+			BITMAPFILEHEADER sbfh;
+			BITMAPINFOHEADER sbih;
 
-			file.seekg(18);
-			file.read(buf,8);
-			width=(buf[3]<<3*8)+(buf[2]<<2*8)+(buf[1]<<8)+buf[0];
-			height=(buf[7]<<3*8)+(buf[6]<<2*8)+(buf[5]<<8)+buf[4];
+			file.read((char*)&sbfh,sizeof(BITMAPFILEHEADER));
+			if(sbfh.bfType!='MB'){
+				cout<<"This is not a BMP!!!";
+				return 1;
+			}
+			file.read((char*)&sbih,sizeof(BITMAPINFOHEADER));
+
+			offset=sbfh.bfOffBits;
+			width=sbih.biWidth;
+			height=(sbih.biHeight>0) ? sbih.biHeight : -sbih.biHeight;
 
 			cout<<"\nU have "<<height*width*3<<"bit to hide UR info("<<((height*width*3)/8)<<"bytes/charters)\n\n";
 
@@ -74,7 +80,7 @@ int main (int argc,char *argv) {
 
 			reqestFileOpen("Input container filename(*.bmp): ",fileo);
 
-			reqestFileOpen("Input output filename(*.txt): ",filet,0);
+			reqestFileOpen("Input output filename(*.txt): ",filet);
 
 			fileo.seekg(10);
 			fileo.read(buf,4);
@@ -112,28 +118,21 @@ int main (int argc,char *argv) {
 
 		else cout<<"Error\n";
 
-	}*/
+	}
 
-	unsigned char str[]="привет";
-	
-	system("Pause");
 	return 0;
 }
 
-void reqestFileOpen(char *outputChar,fstream &fobj, bool nc) {
+void reqestFileOpen(char *outputChar,fstream &fobj) {
 			cout<<outputChar;
 			char fname[MAX_PATH];
-bk:
-			cin.getline(fname,MAX_PATH);
-			cin.clear();
-			_flushall();
-			int mode=ios::binary;
-			if(nc)
-				mode |= ios::in;
-			else mode |= ios::out; 
-			fobj.open(fname,mode);
-			if(nc && !fobj) {
-				cout<<"Wrong filename...Try again: ";
-				goto bk;
+			do {
+				cin.getline(fname,MAX_PATH);
+				cin.clear();
+				_flushall();
+				fobj.open(fname,ios::binary | ios::in | ios::out);
+				if(!fobj) 
+					cout<<"Wrong filename...Try again: ";
 			}
+			while(!fobj);
 }
