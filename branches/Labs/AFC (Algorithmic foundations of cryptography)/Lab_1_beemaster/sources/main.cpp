@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <cassert>
-#include "gmpxx.h"
+#include "gmpwrapper.h"
 #include "primenumbersmanager.h"
 #include "rsa.h"
 
@@ -15,7 +15,7 @@
 *
 *  @author  Roman Pasechnik
 *  @since   March 4th, 2009
-*  @updated March 9th, 2009
+*  @updated March 20th, 2009
 *
 */
 int main ()
@@ -35,14 +35,16 @@ int main ()
               << "Q = " << Q.get_str() << std::endl;
  
     // Number of rounds in Miller-Rabin test
-    const unsigned long rounds = 1000;
+    const unsigned long rounds = 111;
 
     // Create prime numbers manager
     PrimeNumbersManager primeManager(rounds);
 
     // Check if numbers are prime or composite
-    std::cout << "P is "<< ( primeManager.IsPrime(P) ? "prime" : "composite" ) << std::endl
-              << "Q is "<< ( primeManager.IsPrime(Q) ? "prime" : "composite" ) << std::endl;
+    std::cout << "P is "<< ( primeManager.IsPrime(P) ?
+                             "prime" : "composite" ) << std::endl
+              << "Q is "<< ( primeManager.IsPrime(Q) ?
+                             "prime" : "composite" ) << std::endl;
 
     // Create RSA encrypter / decrypter
     RSA rsa(rounds);
