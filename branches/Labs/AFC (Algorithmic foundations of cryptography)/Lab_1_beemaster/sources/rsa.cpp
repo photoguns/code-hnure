@@ -106,8 +106,7 @@ int RSA::Inverse ( mpz_class& _invNum, const mpz_class& _num,
     while ( true )
     {
         // a / b = r0 + s0/b
-        quotient = divisible / divisor;
-        remainder = divisible % divisor;
+        mpz_fdiv_qr (quotient, remainder, divisible, divisor);
 
         if (remainder == 0)
         {

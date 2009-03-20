@@ -35,7 +35,16 @@ void mpz_divexact_ui ( mpz_class& _quotient, const mpz_class& _divisible,
 void mpz_fdiv_q_2exp ( mpz_class& _qoutient, const mpz_class& _divisible,
                        unsigned long _exp )
 {
-    mpz_tdiv_q_2exp ( _qoutient.get_mpz_t(), _divisible.get_mpz_t(), _exp );
+    mpz_fdiv_q_2exp ( _qoutient.get_mpz_t(), _divisible.get_mpz_t(), _exp );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+void mpz_fdiv_qr ( mpz_class& _qoutient, mpz_class& _remainder,
+                   const mpz_class& _divisible, const mpz_class& _divisor )
+{
+    mpz_fdiv_qr ( _qoutient.get_mpz_t(), _remainder.get_mpz_t(),
+                  _divisible.get_mpz_t(), _divisor.get_mpz_t() );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
