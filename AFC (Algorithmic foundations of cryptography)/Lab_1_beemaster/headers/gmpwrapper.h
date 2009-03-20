@@ -39,6 +39,11 @@ void mpz_fdiv_q_2exp ( mpz_class& _qoutient, const mpz_class& _divisible,
 
 ////////////////////////////////////////////////////////////////////////////////
 
+void mpz_fdiv_qr ( mpz_class& _qoutient, mpz_class& _remainder,
+                   const mpz_class& _divisible, const mpz_class& _divisor );
+
+////////////////////////////////////////////////////////////////////////////////
+
 void mpz_powm ( mpz_class& _result, const mpz_class& _base,
                 const mpz_class& _exp, const mpz_class& _mod );
 
