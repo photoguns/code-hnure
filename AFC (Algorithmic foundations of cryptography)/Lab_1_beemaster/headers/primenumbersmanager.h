@@ -5,7 +5,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "gmpxx.h"
+#include "gmpwrapper.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -14,7 +14,7 @@
 *
 *  @author  Roman Pasechnik
 *  @since   March 4th, 2009
-*  @updated March 9th, 2009
+*  @updated March 20th, 2009
 *
 */
 class PrimeNumbersManager
@@ -35,20 +35,12 @@ public:
     ~PrimeNumbersManager ();
 
 
-    /** Generates prime number: 1 < _num < _mod */
+    /** Generates prime number in the range 0 to _mod - 1, inclusive. */
     void GeneratePrime ( mpz_class& _num, const mpz_class& _mod );
 
 
-    /** Generates prime number of fixed length */
+    /** Generates prime number in the range 0 to 2^_length - 1, inclusive. */
     void GeneratePrime ( mpz_class& _num, unsigned long _length );
-
-
-    /** Generates random number: 1 < _num < _mod */
-    void GenerateRandom ( mpz_class& _num, const mpz_class& _mod );
-
-
-    /** Generates a random number of fixed length */
-    void GenerateRandom ( mpz_class& _num, unsigned long _length );
 
 
     /** Checks if number is prime using Miller-Rabin algorithm */
@@ -63,7 +55,8 @@ private:
 
 
     /* Checks if _num is divisible by any of small primes, and saves quotient */
-    bool IsDivisibleBySmallPrime ( mpz_class& _quotient, const mpz_class& _num );
+    bool IsDivisibleBySmallPrime ( mpz_class& _quotient,
+                                   const mpz_class& _num );
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -73,8 +66,8 @@ private:
     const unsigned long m_Rounds;
 
 
-    /** Variable for generating random numbers */
-    gmp_randstate_t m_State;
+    /** Random numbers generator */
+    gmp_randclass m_RndGenerator;
 
     
     /** Prime numbers from 2 to 65521 */

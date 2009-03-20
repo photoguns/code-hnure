@@ -80,7 +80,7 @@ private:
 
 
     /** Computes _base ^ _exp */
-    unsigned long Pow ( unsigned long _base, unsigned long _exp ) const;
+    unsigned long pow ( unsigned long _base, unsigned long _exp ) const;
 
 
 ////////////////////////////////////////////////////////////////////////////////
