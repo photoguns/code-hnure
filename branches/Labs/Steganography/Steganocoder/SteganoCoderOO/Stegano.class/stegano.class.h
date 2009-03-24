@@ -3,7 +3,7 @@
 
 #include <fstream>
 
-enum error{OK,WRONG_BMP,TXT_SIZE_ERROR,UNKNOWN_ERROR=-1};
+enum error{WRONG_BMP,TXT_SIZE_ERROR,UNKNOWN_ERROR};
 
 class Stegano {
 public:
@@ -23,31 +23,26 @@ public:
 
 	virtual ~Stegano();
 
-	bool encrypt() {
-		if(!inited)
-			return false;
+	void encrypt() {
+		init();
 		enc();
-		return true;
 	}
 
-	bool decrypt() {
-		if(!inited)
-			return false;
+	void decrypt() {
+		init();
 		dec();
-		return true;
 	}
 
-	int init();
 
 private:
+	void init();
 	Stegano(){};
 	Stegano(const Stegano&);
 	Stegano& operator=(const Stegano&);
-
-
-protected:
 	virtual void enc()=0;
 	virtual void dec()=0;
+
+protected:
 	bool inited;
 	UINT offset;
 	UINT width;
