@@ -12,7 +12,7 @@ Stegano::~Stegano() {
 		OutTXTFile.close();
 }
 
-int Stegano::init() {
+void Stegano::init() {
 	if((InBMPFile && InTXTFile && OutBMPFile) || (InBMPFile && OutTXTFile)) {
 		
 		BITMAPFILEHEADER sbfh;
@@ -20,7 +20,7 @@ int Stegano::init() {
 
 		InBMPFile.read((char*)&sbfh,sizeof(BITMAPFILEHEADER));
 		if(sbfh.bfType!='MB'){
-			return WRONG_BMP;
+			throw(WRONG_BMP);
 		}
 		InBMPFile.read((char*)&sbih,sizeof(BITMAPINFOHEADER));
 
@@ -40,7 +40,7 @@ int Stegano::init() {
 			InTXTFile.seekg(0,std::ios::beg);
 
 			if(capasity<messageSize*8 || !messageSize) {
-				return TXT_SIZE_ERROR;
+				throw(TXT_SIZE_ERROR);
 			}
 
 			InBMPFile.seekg(offset);
@@ -73,10 +73,10 @@ int Stegano::init() {
 				messageSize+=((bf%2)*(1<<i));
 			}
 			if(messageSize<0)
-				return UNKNOWN_ERROR;
+				throw(UNKNOWN_ERROR);
 		}
 		inited=1;
-		return OK;
+		return;
 	}		
-	return UNKNOWN_ERROR;
+	throw(UNKNOWN_ERROR);
 }

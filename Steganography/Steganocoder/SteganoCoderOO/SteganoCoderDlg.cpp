@@ -153,19 +153,8 @@ void CSteganoCoderDlg::OnBnClickedButtonProceed()
 			KeyEdit.GetWindowText(key,KeyLen);
 			sys = new BLOCK(fnames[0],fnames[1],fnames[2],key);
 		}
-		int errnum=sys->init();
-		if(errnum) {
-			if(errnum==WRONG_BMP)
-				OpenBMPEdit.SetWindowText("This is not a BMP!!!");
-			if(errnum==TXT_SIZE_ERROR)
-				OpenSaveTXTEdit.SetWindowText("TXT size error!!!");
-			if(errnum==UNKNOWN_ERROR)
-				OpenBMPEdit.SetWindowText("UNKNOWN ERROR!!!");
-			delete sys;
-			return;
-		}
-		if(sys->encrypt())
-			SaveBMPEdit.SetWindowText("Done!!!");
+		sys->encrypt();// here must be try-catch block
+		SaveBMPEdit.SetWindowText("Done!!!");
 
 	}
 	else {
@@ -193,17 +182,8 @@ void CSteganoCoderDlg::OnBnClickedButtonProceed()
 			KeyEdit.GetWindowText(key,KeyLen);
 			sys = new BLOCK(fnames[0],fnames[1],key);
 		}
-		int errnum=sys->init();
-		if(errnum) {
-			if(errnum==WRONG_BMP)
-				OpenBMPEdit.SetWindowText("This is not a BMP!!!");
-			if(errnum==UNKNOWN_ERROR)
-				OpenBMPEdit.SetWindowText("UNKNOWN ERROR!!!");
-			delete sys;
-			return;
-		}
-		if(sys->decrypt())
-			OpenSaveTXTEdit.SetWindowText("Done!!!");
+		sys->decrypt(); // here must be try-catch block
+		OpenSaveTXTEdit.SetWindowText("Done!!!");
 	}
 	delete sys;
 }
