@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Console", "Console\Console.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SteganoCoder", "SteganoCoder\SteganoCoder.vcproj", "{000A1145-C92F-4706-A1D4-12ECCB2F80DA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SteganoCoderOOP", "SteganoCoderOOP\SteganoCoderOOP.vcproj", "{166A9D3D-C421-4789-9B1D-E1052BABCFBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +21,10 @@ Global
 		{000A1145-C92F-4706-A1D4-12ECCB2F80DA}.Debug|Win32.Build.0 = Debug|Win32
 		{000A1145-C92F-4706-A1D4-12ECCB2F80DA}.Release|Win32.ActiveCfg = Release|Win32
 		{000A1145-C92F-4706-A1D4-12ECCB2F80DA}.Release|Win32.Build.0 = Release|Win32
+		{166A9D3D-C421-4789-9B1D-E1052BABCFBF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{166A9D3D-C421-4789-9B1D-E1052BABCFBF}.Debug|Win32.Build.0 = Debug|Win32
+		{166A9D3D-C421-4789-9B1D-E1052BABCFBF}.Release|Win32.ActiveCfg = Release|Win32
+		{166A9D3D-C421-4789-9B1D-E1052BABCFBF}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
