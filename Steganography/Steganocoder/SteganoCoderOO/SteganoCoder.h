@@ -9,8 +9,6 @@
 
 #include "resource.h"		// main symbols
 
-#include <fstream>
-#include "stegano.classes.h"
 // CSteganoCoderApp:
 // See SteganoCoder.cpp for the implementation of this class
 //
