@@ -1,0 +1,34 @@
+/**  Naming conventions:
+  *
+  *  - Types, Classes, Namespaces, Global Functions, Methods: ExampleClass, ExampleFunc
+  *  - Variables: localVar, g_GlobalVar, s_StaticVar, gs_GlobalStaticVar
+  *  - Class members-fields: m_ExampleField, ms_StaticField
+  *  - Function, method parameters: _paramName
+  *  - Template parameters: _TemplParam
+  *  - Constants: EXAMPLE_CONSTANT
+  *
+  *  Important coding/files conventions:
+  *    - do not use uppercase letters in the filenames
+  *    - only English comments, variables names (no foul language)
+  *    - avoid writing unnecessary "using" instructions, like "using namespace std", use "std::out"
+  *    - declare typedefs for complex types (esp. for STL derived collections)
+  *    - do not use platform specific routines, ANSI C++ only, STL, BOOST
+  *    - avoid multiple inheritance
+  *    - only inline/template functions bodies can be placed in header files
+  *    - each logical project folder corresponds to C++ namespace
+  *    - minimze usage of macros: include guards, export directives,
+  *      rare non-generalizable cases to improve code structure
+  *    - avoid same and similar code duplication, refactor a.s.a.p
+  *    - no warnings (lev3) left after compilation
+  *    - prefer not to comment out large portions of old code, just kill it
+  *    - clearly separate function bodies in C++ file with "///////////////" lines
+  *
+  *  Commenting conventions:
+  *    - every class, method, variable declaration supplied with documental comment
+  *    - single-line comments inside methods
+  *    - header comment in the beginning of each file (let's design it :-) )
+  *    - every fixture in external code supplied with such inline comment:
+  *         [AUTHOR: Date]: [<BUG OR TESTCASE>] <Short explanation>
+  */
+
+
