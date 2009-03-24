@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "SteganoCoder.h"
 #include "SteganoCoderDlg.h"
-#include <fstream>
+#include "Stegano.class\stegano.h"
 
 const int MaxPath=260;
 const short KeyLen=10;
@@ -124,8 +124,7 @@ void CSteganoCoderDlg::OnBnClickedButtonSaveBMP()
 
 void CSteganoCoderDlg::OnBnClickedButtonProceed()
 {
-
-	stegano *sys=0;
+	Stegano *sys=0;
 	char fnames[3][MaxPath];
 
 	int mod=chckMthdCombo.GetCurSel();
@@ -139,17 +138,17 @@ void CSteganoCoderDlg::OnBnClickedButtonProceed()
 			sys = new LSB(fnames[0],fnames[1],fnames[2]);
 			
 		}
-		if(mod==PRIm) {
+		else if(mod==PRIm) {
 			char key[KeyLen];
 			KeyEdit.GetWindowText(key,KeyLen);
 			sys = new PRI(fnames[0],fnames[1],fnames[2],key);
 		}
-		if(mod==PRSm) {
+		else if(mod==PRSm) {
 			char key[KeyLen];
 			KeyEdit.GetWindowText(key,KeyLen);
 			sys = new PRS(fnames[0],fnames[1],fnames[2],key);
 		}
-		if(mod==BLOCKm) {
+		else if(mod==BLOCKm) {
 			char key[KeyLen];
 			KeyEdit.GetWindowText(key,KeyLen);
 			sys = new BLOCK(fnames[0],fnames[1],fnames[2],key);
@@ -158,10 +157,11 @@ void CSteganoCoderDlg::OnBnClickedButtonProceed()
 		if(errnum) {
 			if(errnum==WRONG_BMP)
 				OpenBMPEdit.SetWindowText("This is not a BMP!!!");
-			if(errnum==TXT_TOO_LARGE)
-				OpenSaveTXTEdit.SetWindowText("TXT is too large!!!");
+			if(errnum==TXT_SIZE_ERROR)
+				OpenSaveTXTEdit.SetWindowText("TXT size error!!!");
 			if(errnum==UNKNOWN_ERROR)
 				OpenBMPEdit.SetWindowText("UNKNOWN ERROR!!!");
+			delete sys;
 			return;
 		}
 		if(sys->encrypt())
@@ -178,17 +178,17 @@ void CSteganoCoderDlg::OnBnClickedButtonProceed()
 			sys = new LSB(fnames[0],fnames[1]);
 
 		}
-		if(mod==PRIm) {
+		else if(mod==PRIm) {
 			char key[KeyLen];
 			KeyEdit.GetWindowText(key,KeyLen);
 			sys = new PRI(fnames[0],fnames[1],key);
 		}
-		if(mod==PRSm) {
+		else if(mod==PRSm) {
 			char key[KeyLen];
 			KeyEdit.GetWindowText(key,KeyLen);
 			sys = new PRS(fnames[0],fnames[1],key);
 		}
-		if(mod==BLOCKm) {
+		else if(mod==BLOCKm) {
 			char key[KeyLen];
 			KeyEdit.GetWindowText(key,KeyLen);
 			sys = new BLOCK(fnames[0],fnames[1],key);
@@ -199,10 +199,11 @@ void CSteganoCoderDlg::OnBnClickedButtonProceed()
 				OpenBMPEdit.SetWindowText("This is not a BMP!!!");
 			if(errnum==UNKNOWN_ERROR)
 				OpenBMPEdit.SetWindowText("UNKNOWN ERROR!!!");
+			delete sys;
 			return;
 		}
 		if(sys->decrypt())
-			SaveBMPEdit.SetWindowText("Done!!!");
+			OpenSaveTXTEdit.SetWindowText("Done!!!");
 	}
 	delete sys;
 }
