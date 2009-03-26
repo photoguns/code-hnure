@@ -8,7 +8,7 @@
 
 const int MaxPath=260;
 const short KeyLen=10;
-enum mode{LSBm,PRIm,PRSm,BLOCKm};
+enum mode{LSBm,PRIm,PRSm,BLOCKm,Quantm};
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -144,6 +144,9 @@ void CSteganoCoderDlg::OnBnClickedButtonProceed()
 		else if(mod==BLOCKm) {
 			sys = new BLOCK();
 		}
+		else if(mod==Quantm) {
+			sys = new Quantization();
+		}
 		OpenBMPEdit.GetWindowText(fnames[0],MaxPath);
 		OpenSaveTXTEdit.GetWindowText(fnames[1],MaxPath);
 		SaveBMPEdit.GetWindowText(fnames[2],MaxPath);
@@ -166,6 +169,9 @@ void CSteganoCoderDlg::OnBnClickedButtonProceed()
 		}
 		else if(mod==BLOCKm) {
 			sys = new BLOCK();
+		}
+		else if(mod==Quantm) {
+			sys = new Quantization();
 		}
 		OpenBMPEdit.GetWindowText(fnames[0],MaxPath);
 		OpenSaveTXTEdit.GetWindowText(fnames[1],MaxPath);
