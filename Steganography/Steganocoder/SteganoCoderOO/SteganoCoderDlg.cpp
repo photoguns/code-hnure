@@ -124,65 +124,54 @@ void CSteganoCoderDlg::OnBnClickedButtonSaveBMP()
 
 void CSteganoCoderDlg::OnBnClickedButtonProceed()
 {
+
 	Stegano *sys=0;
 	char fnames[3][MaxPath];
 
 	int mod=chckMthdCombo.GetCurSel();
 	if(EncDecRadio.GetCheck()) {
 
+
+		if(mod==LSBm) {	
+			sys = new LSB();
+		}
+		else if(mod==PRIm) {
+			sys = new PRI();
+		}
+		else if(mod==PRSm) {
+			sys = new PRS();
+		}
+		else if(mod==BLOCKm) {
+			sys = new BLOCK();
+		}
 		OpenBMPEdit.GetWindowText(fnames[0],MaxPath);
 		OpenSaveTXTEdit.GetWindowText(fnames[1],MaxPath);
 		SaveBMPEdit.GetWindowText(fnames[2],MaxPath);
-
-		if(mod==LSBm) {	
-			sys = new LSB(fnames[0],fnames[1],fnames[2]);
-			
-		}
-		else if(mod==PRIm) {
-			char key[KeyLen];
-			KeyEdit.GetWindowText(key,KeyLen);
-			sys = new PRI(fnames[0],fnames[1],fnames[2],key);
-		}
-		else if(mod==PRSm) {
-			char key[KeyLen];
-			KeyEdit.GetWindowText(key,KeyLen);
-			sys = new PRS(fnames[0],fnames[1],fnames[2],key);
-		}
-		else if(mod==BLOCKm) {
-			char key[KeyLen];
-			KeyEdit.GetWindowText(key,KeyLen);
-			sys = new BLOCK(fnames[0],fnames[1],fnames[2],key);
-		}
-		sys->encrypt();// here must be try-catch block
+		char key[KeyLen];
+		KeyEdit.GetWindowText(key,KeyLen);
+		sys->encrypt(fnames[0],fnames[1],fnames[2],key);// here must be try-catch block
 		SaveBMPEdit.SetWindowText("Done!!!");
 
 	}
 	else {
-		
-		OpenBMPEdit.GetWindowText(fnames[0],MaxPath);
-		OpenSaveTXTEdit.GetWindowText(fnames[1],MaxPath);
 
 		if(mod==LSBm) {
-
-			sys = new LSB(fnames[0],fnames[1]);
-
+			sys = new LSB();
 		}
 		else if(mod==PRIm) {
-			char key[KeyLen];
-			KeyEdit.GetWindowText(key,KeyLen);
-			sys = new PRI(fnames[0],fnames[1],key);
+			sys = new PRI();
 		}
 		else if(mod==PRSm) {
-			char key[KeyLen];
-			KeyEdit.GetWindowText(key,KeyLen);
-			sys = new PRS(fnames[0],fnames[1],key);
+			sys = new PRS();
 		}
 		else if(mod==BLOCKm) {
-			char key[KeyLen];
-			KeyEdit.GetWindowText(key,KeyLen);
-			sys = new BLOCK(fnames[0],fnames[1],key);
+			sys = new BLOCK();
 		}
-		sys->decrypt(); // here must be try-catch block
+		OpenBMPEdit.GetWindowText(fnames[0],MaxPath);
+		OpenSaveTXTEdit.GetWindowText(fnames[1],MaxPath);
+		char key[KeyLen];
+		KeyEdit.GetWindowText(key,KeyLen);
+		sys->decrypt(fnames[0],fnames[1],key); // here must be try-catch block
 		OpenSaveTXTEdit.SetWindowText("Done!!!");
 	}
 	delete sys;

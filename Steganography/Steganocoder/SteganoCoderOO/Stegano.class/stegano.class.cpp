@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "stegano.class.h"
 
-Stegano::~Stegano() {
+Stegano::~Stegano () {
 	if(InBMPFile)
 		InBMPFile.close();
 	if(InTXTFile)
@@ -12,7 +12,21 @@ Stegano::~Stegano() {
 		OutTXTFile.close();
 }
 
-void Stegano::init() {
+void Stegano::init(const char *InBMPFilename,const char *InTXTFilename,const char *OutBMPFilename,const char *OutTXTFilename,const char *key) {
+	if(InBMPFilename)
+		InBMPFile.open(InBMPFilename,std::ios::binary | std::ios::in);
+	if(InTXTFilename)
+		InTXTFile.open(InTXTFilename,std::ios::binary | std::ios::in);
+	if(OutBMPFilename)
+		OutBMPFile.open(OutBMPFilename,std::ios::binary | std::ios::out);
+	if(OutTXTFilename)
+		OutTXTFile.open(OutTXTFilename,std::ios::binary | std::ios::out);
+	if(key)	{
+		UINT seed=0;
+		for(UINT j=0;j<strlen(key);j++)
+			seed+=key[j];
+		srand(seed);
+	}
 	if((InBMPFile && InTXTFile && OutBMPFile) || (InBMPFile && OutTXTFile)) {
 		
 		BITMAPFILEHEADER sbfh;
@@ -75,8 +89,7 @@ void Stegano::init() {
 			if(messageSize<0)
 				throw(UNKNOWN_ERROR);
 		}
-		inited=1;
 		return;
-	}		
+	}
 	throw(UNKNOWN_ERROR);
 }

@@ -2,23 +2,9 @@
 
 const short BlockLen=10;
 
-class PRS: public Stegano, public withKey {
-public:
-
-
-	PRS(const char *InBMPFilename, const char *InTXTFilename, const char *OutBMPFilename, const char *Key)
-		:Stegano(InBMPFilename,InTXTFilename,OutBMPFilename),
-		withKey(Key) {}
-	
-	PRS(const char *InBMPFilename, const char *OutBMPFilename, const char *Key)
-	:Stegano(InBMPFilename,OutBMPFilename),
-	withKey(Key) {}
-	
-
-private:
+class PRS: public Stegano {
 	UINT pm[BlockLen];
 	void initPM();
-	void enc();
-	void dec();
-	PRS();
+	virtual void enc();
+	virtual void dec();
 };

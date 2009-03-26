@@ -1,6 +1,6 @@
 #include "stegano.class.h"
 
-class LSB: public Stegano {
+class Quantization: public Stegano {
 	virtual void enc();
 	virtual void dec();
 };
