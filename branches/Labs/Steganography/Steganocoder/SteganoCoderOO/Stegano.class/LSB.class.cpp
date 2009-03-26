@@ -4,7 +4,7 @@
 void LSB::enc() {
 
 	UCHAR msg=0, bf=0;
-	do {
+	while(!InTXTFile.eof()) {
 		InTXTFile.get((char &)msg);
 		for(int i=0;i<8;i++) {
 			InBMPFile.get((char &)bf);
@@ -15,7 +15,6 @@ void LSB::enc() {
 			msg/=2;
 		}
 	}
-	while(!InTXTFile.eof());
 
 }
 
