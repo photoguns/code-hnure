@@ -3,14 +3,13 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODER_H_
-#include "coder.h"
-#endif
+#include "lsbcoder.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-/** C++ class for stegano -coding -encoding based on PRI algorithm
+/** C++ class for stegano -coding -encoding based on 
+    "pseudorandom interval" algorithm
 *
 *
 *  @author  Roman Pasechnik
@@ -18,7 +17,7 @@
 *  @updated March 25th, 2009
 *
 */
-class PRICoder: public Coder
+class PRICoder: public LSBCoder
 {
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -36,18 +35,33 @@ public:
 
 
     /** Puts the message into container */
-    virtual void Encrypt ( const std::string& message,
-                           Container* _container,
-                           const Key* _key );
+    virtual void HideMessage ( Container* _container,
+                               const std::string& message,
+                               const Key* _key );
 
 
     /** Gets the message from container */
-    virtual std::string Decrypt ( const Container* _container,
-                                  const Key* _key );
+    virtual std::string GetMessage ( const Container* _container,
+                                     const Key* _key );
 
 ////////////////////////////////////////////////////////////////////////////////
 
 private:
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+    /** Special next pixel handling in this coder */
+    virtual bool GetNextPixel( const BMPContainer* _container, RGBApixel& _pixel );
+
+
+    /** PRI Key */
+    std::vector<int> m_Key;
+
+
+    /** Current interval in PRI Key */
+    int m_CurrKeyIdx;
+
 
 ////////////////////////////////////////////////////////////////////////////////
 };

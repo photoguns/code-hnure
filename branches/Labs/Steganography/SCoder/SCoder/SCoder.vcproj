@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="headers;../EasyBMP_1.06"
+				AdditionalIncludeDirectories="headers;../EasyBMP_1.06;../MD5"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -181,6 +181,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\headers\scoder.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="containers"
@@ -309,10 +313,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\headers\lsbkey.h"
-					>
-				</File>
-				<File
 					RelativePath=".\headers\prikey.h"
 					>
 				</File>
@@ -333,10 +333,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\sources\lsbkey.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\sources\prikey.cpp"
 					>
 				</File>
@@ -344,6 +340,34 @@
 					RelativePath=".\sources\prskey.cpp"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="MD5"
+				>
+				<Filter
+					Name="headers"
+					>
+					<File
+						RelativePath="..\MD5\md5.h"
+						>
+					</File>
+					<File
+						RelativePath="..\MD5\md5wrapper.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="sources"
+					>
+					<File
+						RelativePath="..\MD5\md5.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\MD5\md5wrapper.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 	</Files>

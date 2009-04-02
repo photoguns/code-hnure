@@ -1,5 +1,6 @@
 #ifndef _CODER_H_
 #define _CODER_H_
+
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <string>
@@ -39,19 +40,15 @@ public:
 
 
     /** Puts the message into container */
-    virtual void Encrypt ( const std::string& _message,
-                           Container* _container,
-                           const Key* _key = NULL ) = 0;
+    virtual void HideMessage ( Container* _container,
+                               const std::string& _message,
+                               const Key* _key = NULL ) = 0;
 
 
     /** Gets the message from container */
-    virtual std::string Decrypt ( const Container* _container,
-                                  const Key* _key = NULL ) = 0;
+    virtual std::string GetMessage ( const Container* _container,
+                                     const Key* _key = NULL ) = 0;
 
-
-////////////////////////////////////////////////////////////////////////////////
-
-private:
 
 ////////////////////////////////////////////////////////////////////////////////
 };

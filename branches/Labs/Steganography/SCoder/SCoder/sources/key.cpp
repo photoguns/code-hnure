@@ -1,14 +1,24 @@
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _KEY_H_
+#include "md5wrapper.h"
 #include "key.h"
-#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-Key::Key()
+Key::Key( const std::string& _string, Key::KeyType _type )
 {
+    switch (_type)
+    {
+        case FILE:
+            m_Key =  md5wrapper().getHashFromFile(_string);
+            break;
+        case STRING:
+            m_Key =  md5wrapper().getHashFromString(_string);
+            break;
+        default:
+            break;
+    }
 }
 
 
@@ -22,3 +32,11 @@ Key::~Key()
 
 ////////////////////////////////////////////////////////////////////////////////
 
+
+std::string Key::GetKeyHash() const
+{
+    return m_Key;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////

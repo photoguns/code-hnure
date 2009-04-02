@@ -3,9 +3,8 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _KEY_H_
 #include "key.h"
-#endif
+
 
 /** C++ class for keys generation for PRS algorithm
 *
@@ -25,16 +24,20 @@ public:
 
 
     /** Constructor */
-    PRSKey();
+    PRSKey( const std::string& _string, Key::KeyType _type );
 
 
     /** Destructor */
     virtual ~PRSKey();
 
 
-////////////////////////////////////////////////////////////////////////////////
+    /** Tells if this key is PRS key */
+    virtual bool IsPRSKey() const { return true; }
 
-private:
+
+    /** Apply PRS Key to _message and return modified message */
+    std::string ApplyPRSKey( const std::string& _message ) const;
+
 
 ////////////////////////////////////////////////////////////////////////////////
 };

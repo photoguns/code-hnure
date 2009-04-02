@@ -3,9 +3,9 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _KEY_H_
+#include <vector>
 #include "key.h"
-#endif
+
 
 /** C++ class for keys generation for PRI algorithm
 *
@@ -25,16 +25,20 @@ public:
 
 
     /** Constructor */
-    PRIKey();
+    PRIKey( const std::string& _string, Key::KeyType _type );
 
 
     /** Destructor */
     virtual ~PRIKey();
 
 
-////////////////////////////////////////////////////////////////////////////////
+    /** Tells if this key is PRI key */
+    virtual bool IsPRIKey() const { return true; }
 
-private:
+
+    /** Get PRI Key of desired size */
+    std::vector<int> GetPRIKey( size_t _size ) const;
+
 
 ////////////////////////////////////////////////////////////////////////////////
 };

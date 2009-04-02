@@ -3,9 +3,8 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODER_H_
-#include "coder.h"
-#endif
+#include "lsbcoder.h"
+#include "blockkey.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -14,11 +13,11 @@
 *
 *
 *  @author  Roman Pasechnik
-*  @since   March 25th, 2009
-*  @updated March 25th, 2009
+*  @since   Mar 25th, 2009
+*  @updated Apr 02th, 2009
 *
 */
-class BlockCoder: public Coder
+class BlockCoder: public LSBCoder
 {
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -36,19 +35,46 @@ public:
 
 
     /** Puts the message into container */
-    virtual void Encrypt ( const std::string& message,
-                           Container* _container,
-                           const Key* _key );
+    virtual void HideMessage( Container* _container,
+                              const std::string& _message,
+                              const Key* _key );
 
 
     /** Gets the message from container */
-    virtual std::string Decrypt ( const Container* _container,
-                                  const Key* _key );
+    virtual std::string GetMessage( const Container* _container,
+                                    const Key* _key );
 
 
 ////////////////////////////////////////////////////////////////////////////////
 
 private:
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+    /** Special handling for Block algorithm */
+    virtual bool WriteBit( BMPContainer* _container, bool _bit );
+
+
+    /** Special handling for Block algorithm */
+    virtual bool ReadBit( const BMPContainer* _container, bool& _bit );
+
+
+    ///** Calculates even bit of a pixel */
+    //bool PixelEvenBit( const RGBApixel& pixel ) const;
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+    ///** PRS Key */
+    //BlockKey::Blocks m_Key;
+    std::vector<int> m_Key;
+
+
+    /** Current area in PRS Key */
+    size_t m_CurrBlock;
+
 
 ////////////////////////////////////////////////////////////////////////////////
 };
