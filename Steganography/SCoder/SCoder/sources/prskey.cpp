@@ -1,13 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _PRSKEY_H_
 #include "prskey.h"
-#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-PRSKey::PRSKey()
+PRSKey::PRSKey( const std::string& _string, Key::KeyType _type )
+:Key(_string, _type)
 {
 }
 
@@ -22,3 +21,22 @@ PRSKey::~PRSKey()
 
 ////////////////////////////////////////////////////////////////////////////////
 
+
+std::string PRSKey::ApplyPRSKey( const std::string& _message ) const
+{
+    // Get key hash
+    std::string keyHash = GetKeyHash();
+
+    // Key hash length
+    size_t hashLength = keyHash.length();
+
+    // Message + key
+    std::string mixedMessage(_message);
+    for (size_t i = 0; i < _message.length(); ++i)
+        mixedMessage[i] = _message[i] ^ keyHash[i % hashLength];
+
+    return mixedMessage;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////

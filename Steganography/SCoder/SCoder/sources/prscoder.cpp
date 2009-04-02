@@ -1,12 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _PRSCODER_H_
 #include "prscoder.h"
-#endif
-
-#ifndef _PRSKEY_H_
 #include "prskey.h"
-#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -27,17 +22,29 @@ PRSCoder::~PRSCoder()
 ////////////////////////////////////////////////////////////////////////////////
 
 
-void PRSCoder::Encrypt ( const std::string& message, Container* _container,
-                         const Key* _key )
+void PRSCoder::HideMessage ( Container* _container, const std::string& _message, 
+                             const Key* _key )
 {
+    if ( _key->IsPRSKey() )
+    {
+        const PRSKey* key = static_cast<const PRSKey*>(_key);
+        LSBCoder::HideMessage(_container, key->ApplyPRSKey(_message));
+    }
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-std::string PRSCoder::Decrypt ( const Container* _container, const Key* _key )
+std::string PRSCoder::GetMessage ( const Container* _container, const Key* _key )
 {
+    if ( _key->IsPRSKey() )
+    {
+        const PRSKey* key = static_cast<const PRSKey*>(_key);
+        return key->ApplyPRSKey(LSBCoder::GetMessage(_container) );
+    }
+
+    // Not a PRS key
     return "";
 }
 
