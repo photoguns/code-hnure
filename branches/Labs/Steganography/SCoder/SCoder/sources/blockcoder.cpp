@@ -23,7 +23,7 @@ BlockCoder::~BlockCoder()
 ////////////////////////////////////////////////////////////////////////////////
 
 
-void BlockCoder::HideMessage( Container* _container,
+void BlockCoder::SetMessage( Container* _container,
                               const std::string& _message, const Key* _key )
 {
     // Must be Block key
@@ -50,7 +50,7 @@ void BlockCoder::HideMessage( Container* _container,
             m_Key = key->GetBlockKey(keyLength);
 
             // Hide message
-            LSBCoder::HideMessage(_container, _message);
+            LSBCoder::SetMessage(_container, _message);
         }
     }
 }
@@ -136,7 +136,7 @@ bool BlockCoder::WriteBit( BMPContainer* _container, bool _bit )
     for (int i = 0; i < m_Key[m_CurrBlock]; ++i)
     {
         // Get pixel byte
-        if ( !GetNextByte(_container, byte) )
+        if ( !GetByte(&byte) )
             return false;
 
         if ( byte % 2 )
@@ -151,7 +151,7 @@ bool BlockCoder::WriteBit( BMPContainer* _container, bool _bit )
         byte = static_cast<unsigned char>( bits.to_ulong() );
 
         // Write modified byte
-        SetByte(_container, byte);
+        SetByte(byte);
     }
 
     // Prepare next block for next bit
@@ -193,7 +193,7 @@ bool BlockCoder::ReadBit( const BMPContainer* _container, bool& _bit )
         unsigned char byte;
 
         // Get pixel byte
-        if ( !GetNextByte(_container, byte) )
+        if ( !GetByte(&byte) )
             return false;
 
         if ( byte % 2 )

@@ -11,9 +11,12 @@ Key::Key( const std::string& _string, Key::KeyType _type )
     switch (_type)
     {
         case FILE:
+            // Construct key from file
             m_Key =  md5wrapper().getHashFromFile(_string);
             break;
+
         case STRING:
+            // Construct key from string
             m_Key =  md5wrapper().getHashFromString(_string);
             break;
         default:

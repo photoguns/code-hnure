@@ -40,9 +40,9 @@ public:
 
 
     /** Puts the message into container */
-    virtual void HideMessage ( Container* _container,
-                               const std::string& _message,
-                               const Key* _key = NULL ) = 0;
+    virtual void SetMessage ( Container* _container,
+                              const std::string& _message,
+                              const Key* _key = NULL ) = 0;
 
 
     /** Gets the message from container */
@@ -52,4 +52,5 @@ public:
 
 ////////////////////////////////////////////////////////////////////////////////
 };
+
 #endif //_CODER_H_

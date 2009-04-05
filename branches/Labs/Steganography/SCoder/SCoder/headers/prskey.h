@@ -10,8 +10,8 @@
 *
 *
 *  @author  Roman Pasechnik
-*  @since   March 25th, 2009
-*  @updated March 25th, 2009
+*  @since   Mar 25th, 2009
+*  @updated Mar 25th, 2009
 *
 */
 class PRSKey : public Key

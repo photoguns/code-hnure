@@ -8,8 +8,8 @@
 *    
 *
 *  @author  Roman Pasechnik
-*  @since   March 25th, 2009
-*  @updated March 25th, 2009
+*  @since   Mar 25th, 2009
+*  @updated Mar 25th, 2009
 *
 */
 class Container
@@ -19,6 +19,14 @@ class Container
 public:
 
 ////////////////////////////////////////////////////////////////////////////////
+
+
+    /** Constructor */
+    Container();
+
+
+    /** Destructor */
+    virtual ~Container();
 
 
     /** Tells if this container is BMP container */

@@ -1,28 +1,26 @@
-#include <iostream>
 #include "scoder.h"
-
 
 int main()
 {
-    std::cout << "Hello Stego!" << std::endl;
-
     //Create a BMP image container
-    Container* container = new BMPContainer("Image.bmp");
+    Container* container = GetBMPContainer("Image.bmp");
 
     //Create LSB coder
-    Coder* coder = new BlockCoder();
+    Coder* coder = GetQuantCoder();
 
     //Create PRS key
-    Key* key = new BlockKey("Key", Key::STRING);
+    Key* key = GetQuantKey("Shut your eyes and see", Key::STRING);
 
     //Hide message into container
-    coder->HideMessage(container, "Message", key);
+    coder->SetMessage(container, "Shut your mouth and talk to me", key);
 
     //Get message from container
     std::string message = coder->GetMessage(container, key);
 
+    // Cleanup memory
     delete container;
     delete coder;
     delete key;
+
     return 0;
 }
