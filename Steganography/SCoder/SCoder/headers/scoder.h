@@ -3,29 +3,41 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/** Containers */
-
 #include "container.h"
-#include "bmpcontainer.h"
+#include "coder.h"
+#include "key.h"
 
 ////////////////////////////////////////////////////////////////////////////////
+
+
+/** Containers */
+
+Container* GetBMPContainer( const std::string& _fileName );
+
+
+////////////////////////////////////////////////////////////////////////////////
+
 
 /** Coders */
 
-#include "coder.h"
-#include "lsbcoder.h"
-#include "pricoder.h"
-#include "prscoder.h"
-#include "blockcoder.h"
+Coder* GetLSBCoder();
+Coder* GetPRICoder();
+Coder* GetPRSCoder();
+Coder* GetBlockCoder();
+Coder* GetQuantCoder();
+Coder* GetCrossCoder();
+
 
 ////////////////////////////////////////////////////////////////////////////////
 
+
 /** Keys */
 
-#include "coder.h"
-#include "prikey.h"
-#include "prskey.h"
-#include "blockkey.h"
+Key* GetPRIKey  ( const std::string& _string, Key::KeyType _type );
+Key* GetPRSKey  ( const std::string& _string, Key::KeyType _type );
+Key* GetBlockKey( const std::string& _string, Key::KeyType _type );
+Key* GetQuantKey( const std::string& _string, Key::KeyType _type );
+
 
 ////////////////////////////////////////////////////////////////////////////////
 

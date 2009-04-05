@@ -1,7 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "lsbcoder.h"
-#include "bmpcontainer.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -22,47 +21,23 @@ LSBCoder::~LSBCoder()
 ////////////////////////////////////////////////////////////////////////////////
 
 
-void LSBCoder::HideMessage ( Container* _container, const std::string& _message, 
-                             const Key* _key )
+std::string LSBCoder::GetMessage( const Container* _container, const Key* _key )
 {
-    // Must be BMP container
+    // Must be a BMP container
     if ( _container->IsBMPContainer() )
     {
-        // Clear data
-        Reset();
-
-        // Get container
-        BMPContainer* container = static_cast<BMPContainer*>(_container);
-
-        //Hide message length first
-        HideMessageLength ( container, _message.length() );
-
-        // Hide message text
-        HideMessageText (container, _message);
-    }
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-std::string LSBCoder::GetMessage ( const Container* _container, const Key* _key )
-{
-    // Must be BMP container
-    if ( _container->IsBMPContainer() )
-    {
-        // Clear data
-        Reset();
-
         // Get container
         const BMPContainer* container = 
             static_cast<const BMPContainer*>(_container);
 
+        // Setup BMP container
+        SetupContainer(container);
+
         // Get message length first
-        unsigned long messageLength = GetMessageLength(container);
+        unsigned long messageLength = GetMessageLength();
 
         // Get message text
-        return GetMessageText(container, messageLength);
+        return GetMessageText(messageLength);
     }
 
     // Error, not a BMP container
@@ -73,28 +48,24 @@ std::string LSBCoder::GetMessage ( const Container* _container, const Key* _key 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-void LSBCoder::Reset()
+void LSBCoder::SetMessage( Container* _container, const std::string& _message, 
+                           const Key* _key )
 {
-    m_CurrHeight = -1;
-    m_CurrWidth = 0;
-    m_Colour = Red;
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-void LSBCoder::HideMessageLength ( BMPContainer* _container, size_t _length )
-{
-    // Prepare message length for hiding - convert it to binary
-    SizeTBitset length(_length);
-
-    // Write all the bits
-    for (size_t bitsWritten = 0; bitsWritten < bitsInSizeT; ++bitsWritten)
+    // Must be BMP container
+    if ( _container->IsBMPContainer() )
     {
-        // If no space left to write bits - break
-        if ( !WriteBit(_container, length[bitsWritten]) )
-            break;
+        // Get container
+        const BMPContainer* container = 
+            static_cast<const BMPContainer*>(_container);
+
+        // Setup BMP container
+        SetupContainer(container);
+
+        //Hide message length first
+        SetMessageLength( _message.length() );
+
+        // Hide message text
+        SetMessageText(_message);
     }
 }
 
@@ -102,35 +73,48 @@ void LSBCoder::HideMessageLength ( BMPContainer* _container, size_t _length )
 ////////////////////////////////////////////////////////////////////////////////
 
 
-void LSBCoder::HideMessageText ( BMPContainer* _container, const std::string& _message )
+void LSBCoder::SetupContainer( const BMPContainer* _container )
 {
-    // Prepare message for hiding - convert it to binary
-    BinaryString message;
+    // Set current container
+    SetContainer(_container);
 
-    // Convert message to binary
-    for (size_t byteN = 0; byteN < _message.length(); ++byteN)
-
-        // Save each letter
-        message.push_back(_message[byteN]);
-
-    // Get container dimensions
-    const size_t bitsInMessage = _message.size() * bitsInChar;
-
-    // Hide message
-    for (size_t bitsWritten = 0; bitsWritten < bitsInMessage; ++bitsWritten)
-    {
-        // If no space left to write bits - break
-        if ( !WriteBit(_container, message[bitsWritten / bitsInChar]
-                                          [bitsWritten % bitsInChar]) )
-            break;
-    }
+    // Set default colour and position
+    SetCurrColour(Red);
+    SetCurrPixelPosition(-1,0);
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-unsigned long LSBCoder::GetMessageLength ( const BMPContainer* _container )
+const BMPContainer* LSBCoder::GetContainer() const
+{
+    return static_cast<const BMPContainer*>(m_Container);
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+BMPContainer* LSBCoder::GetContainer()
+{
+    return m_Container;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+void LSBCoder::SetContainer( const BMPContainer* _container )
+{
+    m_Container = const_cast<BMPContainer*>(_container);
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+unsigned long LSBCoder::GetMessageLength()
 {
     // Binary message size
     SizeTBitset messageLength;
@@ -142,7 +126,7 @@ unsigned long LSBCoder::GetMessageLength ( const BMPContainer* _container )
         bool bit;
 
         // If no space left to read bits - break
-        if ( !ReadBit(_container, bit) )
+        if ( !GetBit(&bit) )
             break;
 
         // Save bit
@@ -157,8 +141,25 @@ unsigned long LSBCoder::GetMessageLength ( const BMPContainer* _container )
 ////////////////////////////////////////////////////////////////////////////////
 
 
-std::string LSBCoder::GetMessageText ( const BMPContainer* _container,
-                                       size_t _length )
+void LSBCoder::SetMessageLength( size_t _length )
+{
+    // Prepare message length for hiding - convert it to binary
+    SizeTBitset length(_length);
+
+    // Write all the bits
+    for (size_t bitsWritten = 0; bitsWritten < bitsInSizeT; ++bitsWritten)
+    {
+        // If no space left to write bits - break
+        if ( !SetBit( length[bitsWritten] ) )
+            break;
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+std::string LSBCoder::GetMessageText( size_t _length )
 {
     // Binary message
     BinaryString message;
@@ -176,7 +177,7 @@ std::string LSBCoder::GetMessageText ( const BMPContainer* _container,
         bool bit;
 
         // If no space left to read bits - break
-        if ( !ReadBit(_container, bit) )
+        if ( !GetBit(&bit) )
             break;
 
         // Save bit
@@ -197,22 +198,73 @@ std::string LSBCoder::GetMessageText ( const BMPContainer* _container,
 ////////////////////////////////////////////////////////////////////////////////
 
 
-bool LSBCoder::WriteBit( BMPContainer* _container, bool _bit )
+void LSBCoder::SetMessageText( const std::string& _message )
+{
+    // Prepare message for hiding - convert it to binary
+    BinaryString message;
+
+    // Convert message to binary
+    for (size_t byteN = 0; byteN < _message.length(); ++byteN)
+
+        // Save each letter
+        message.push_back(_message[byteN]);
+
+    // Get container dimensions
+    const size_t bitsInMessage = _message.size() * bitsInChar;
+
+    // Hide message
+    for (size_t bitsWritten = 0; bitsWritten < bitsInMessage; ++bitsWritten)
+    {
+        // If no space left to write bits - break
+        if ( !SetBit( message[bitsWritten / bitsInChar]
+                             [bitsWritten % bitsInChar] ) )
+            break;
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+bool LSBCoder::GetBit( bool* _bit )
+{
+    // Byte
+    unsigned char byte;
+
+    // Get next byte
+    if ( !GetByte(&byte) )
+        return false;
+
+    // Read its LSB
+    *_bit = byte & 1;
+
+    // Read is OK
+    return true;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+bool LSBCoder::SetBit( bool _bit )
 {
     // Get next byte for writing
     unsigned char byte;
-    if ( !GetNextByte(_container, byte) )
+
+    if ( !GetByte(&byte) )
         // Bit has not been written
         return false;
 
     // Max byte
-    unsigned char maxByte = std::numeric_limits<unsigned char>::max();
+    unsigned char maxByte = std::numeric_limits<unsigned char>::max() - 1;
+    unsigned char bit = _bit;
 
-    // Write bit
-    byte &= static_cast<unsigned char>(_bit) | (maxByte - 1);
+    // Write bit to byte
+    byte &= bit | maxByte;
+    byte |= bit;
 
     // Write pixel
-    SetByte(_container, byte);
+    SetByte(byte);
 
     // Bit has been successfully written
     return true;
@@ -222,31 +274,32 @@ bool LSBCoder::WriteBit( BMPContainer* _container, bool _bit )
 ////////////////////////////////////////////////////////////////////////////////
 
 
-bool LSBCoder::GetNextByte ( const BMPContainer* _container, unsigned char& _byte )
+bool LSBCoder::GetByte( unsigned char* _byte )
 {
+    
     // Which color to choose?
-    switch (m_Colour)
+    switch ( GetCurrColour() )
     {
     case Red:
         // Take a new pixel
-        if ( !GetNextPixel(_container, m_Pixel) )
+        if ( !JumpToNextPixel() )
             return false;
 
         // Green
-        m_Colour = Green;
-        _byte = m_Pixel.Green; 
+        SetCurrColour(Green);
+        *_byte = GetCurrPixel().Green; 
         break;
     
     case Green:
         // Blue
-        m_Colour = Blue;
-        _byte = m_Pixel.Blue; 
+        SetCurrColour(Blue);
+        *_byte = GetCurrPixel().Blue; 
         break;
     
     case Blue:
         // Red
-        m_Colour = Red;
-        _byte = m_Pixel.Red; 
+        SetCurrColour(Red);
+        *_byte = GetCurrPixel().Red; 
         break;
     }
 
@@ -257,56 +310,61 @@ bool LSBCoder::GetNextByte ( const BMPContainer* _container, unsigned char& _byt
 ////////////////////////////////////////////////////////////////////////////////
 
 
-void LSBCoder::SetByte ( BMPContainer* _container, unsigned char _byte )
+void LSBCoder::SetByte( unsigned char _byte )
 {
-    switch (m_Colour)
+    RGBApixel pixel = GetCurrPixel();
+
+    switch ( GetCurrColour() )
     {
     case Red:
         // Save in red
-        m_Pixel.Red = _byte;
+        pixel.Red = _byte;
         break;
 
     case Green:
         // Save in green
-        m_Pixel.Green = _byte;
+        pixel.Green = _byte;
         break;
 
     case Blue:
         // Save in blue
-        m_Pixel.Blue = _byte;
+        pixel.Blue = _byte;
         break;
     }
 
     // Save pixel
-    _container->SetPixel(m_CurrHeight, m_CurrWidth, m_Pixel);
+    SetCurrPixel(pixel);
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-bool LSBCoder::GetNextPixel ( const BMPContainer* _container, RGBApixel& _pixel)
+bool LSBCoder::JumpToNextPixel()
 {
     // Get container dimensions
-    const int height = _container->TellHeight();
-    const int width = _container->TellWidth();
+    const int height = GetContainer()->TellHeight();
+    const int width = GetContainer()->TellWidth();
+
+    int currHeight, currWidth;
+    GetCurrPixelPosition(&currHeight, &currWidth);
 
     // Lowest pixel in a column
-    if ( ++m_CurrHeight == height )
+    if ( ++currHeight == height )
     {
         // Jump to highest pixel
-        m_CurrHeight = 0;
-        ++m_CurrWidth;
+        currHeight = 0;
+        ++currWidth;
 
         // Rightmost pixel
-        if (m_CurrWidth == width)
+        if (currWidth == width)
 
             //No pixels left
             return false;
     }
 
-    // Get next pixel
-    _pixel = _container->GetPixel(m_CurrHeight, m_CurrWidth);
+    // Jump to next pixel
+    SetCurrPixelPosition(currHeight, currWidth);
 
     // Next pixel is OK
     return true;
@@ -316,20 +374,66 @@ bool LSBCoder::GetNextPixel ( const BMPContainer* _container, RGBApixel& _pixel)
 ////////////////////////////////////////////////////////////////////////////////
 
 
-bool LSBCoder::ReadBit ( const BMPContainer* _container, bool& _bit )
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+RGBApixel LSBCoder::GetCurrPixel() const
 {
-    // Byte
-    unsigned char byte;
+    return GetContainer()->GetPixel(m_CurrHeight, m_CurrWidth);
+}
 
-    // Get next byte
-    if ( !GetNextByte(_container, byte) )
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+void LSBCoder::SetCurrPixel( const RGBApixel& _pixel )
+{
+    GetContainer()->SetPixel(m_CurrHeight, m_CurrWidth, _pixel);
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+void LSBCoder::GetCurrPixelPosition( int* _i, int* _j ) const
+{
+    *_i = m_CurrHeight;
+    *_j = m_CurrWidth;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+bool LSBCoder::SetCurrPixelPosition( int _i, int _j )
+{
+    if ( _i < m_Container->TellHeight() && _j < m_Container->TellWidth() )
+    {
+        m_CurrHeight = _i;
+        m_CurrWidth = _j;
+        return true;
+    }
+    else
         return false;
+}
 
-    // Read its LSB
-    _bit = byte & 1;
 
-    // Read is OK
-    return true;
+////////////////////////////////////////////////////////////////////////////////
+
+
+LSBCoder::Colour LSBCoder::GetCurrColour() const
+{
+    return m_Colour;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+void LSBCoder::SetCurrColour( Colour _colour )
+{
+    m_Colour = _colour;
 }
 
 

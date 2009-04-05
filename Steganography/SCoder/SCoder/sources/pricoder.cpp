@@ -22,16 +22,15 @@ PRICoder::~PRICoder()
 ////////////////////////////////////////////////////////////////////////////////
 
 
-void PRICoder::HideMessage ( Container* _container, const std::string& _message, 
-                             const Key* _key )
+void PRICoder::SetMessage( Container* _container, const std::string& _message, 
+                           const Key* _key )
 {
-    // Must be PRI key
+    // Must be a PRI key
     if ( _key->IsPRIKey() )
     {
         // Reset data
         m_CurrKeyIdx = -1;
 
-        // Hard coded key length
         const size_t keyLength = 16;
         const PRIKey* key = static_cast<const PRIKey*>(_key);
         
@@ -39,7 +38,7 @@ void PRICoder::HideMessage ( Container* _container, const std::string& _message,
         m_Key = key->GetPRIKey(keyLength);
 
         // Hide message using LSB algorithm
-        LSBCoder::HideMessage(_container, _message);
+        LSBCoder::SetMessage(_container, _message);
     }
 }
 
@@ -47,7 +46,7 @@ void PRICoder::HideMessage ( Container* _container, const std::string& _message,
 ////////////////////////////////////////////////////////////////////////////////
 
 
-std::string PRICoder::GetMessage ( const Container* _container, const Key* _key )
+std::string PRICoder::GetMessage( const Container* _container, const Key* _key )
 {
     // Must be PRI key
     if ( _key->IsPRIKey() )
@@ -71,14 +70,14 @@ std::string PRICoder::GetMessage ( const Container* _container, const Key* _key 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-bool PRICoder::GetNextPixel( const BMPContainer* _container, RGBApixel& _pixel )
+bool PRICoder::JumpToNextPixel()
 {
     // Get next interval in key
     m_CurrKeyIdx = ++m_CurrKeyIdx % m_Key.size();
 
     // Continue getting next pixels just like in LSB algorithm
     for (int i = 0; i < m_Key[m_CurrKeyIdx]; ++i)
-        if ( !LSBCoder::GetNextPixel(_container, _pixel) )
+        if ( !LSBCoder::JumpToNextPixel() )
             // No pixels left
             return false;
 

@@ -1,23 +1,23 @@
-#ifndef _PRICODER_H_
-#define _PRICODER_H_
+#ifndef _QUANTCODER_H_
+#define _QUANTCODER_H_
 
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "lsbcoder.h"
+#include "quantkey.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-/** C++ class for stegano -coding -encoding based on 
-    "pseudorandom substitution" algorithm
+/** C++ class for stegano -coding -encoding based on "quantization" algorithm
 *
 *
 *  @author  Roman Pasechnik
-*  @since   Mar 25th, 2009
+*  @since   Apr 04th, 2009
 *  @updated Apr 05th, 2009
 *
 */
-class PRICoder: public LSBCoder
+class QuantCoder: public LSBCoder
 {
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -27,11 +27,11 @@ public:
 
 
     /** Constructor */
-    PRICoder();
+    QuantCoder();
 
 
     /** Destructor */
-    virtual ~PRICoder();
+    virtual ~QuantCoder();
 
 
     /** Puts the message into container */
@@ -51,19 +51,27 @@ private:
 ////////////////////////////////////////////////////////////////////////////////
 
 
-    /** Special next pixel handling in this coder */
-    virtual bool JumpToNextPixel();
+    /** Special handling in this coder */
+    virtual bool WriteBit( BMPContainer* _container, bool _bit );
 
 
-    /** PRI Key */
-    std::vector<int> m_Key;
+    /** Special handling in this coder */
+    virtual bool ReadBit( const BMPContainer* _container, bool& _bit );
 
 
-    /** Current interval in PRI Key */
-    int m_CurrKeyIdx;
+    /** Gets nearest brightness position in quantization table with equal bit */
+    int GetNearestDifference( int _difference, bool _bit );
+
+
+    /** Quant Key */
+    std::bitset<QuantKey::quantizationTableSize> m_Key;
+
+
+    /** Previous byte value */
+    unsigned char m_PrevByte;
 
 
 ////////////////////////////////////////////////////////////////////////////////
 };
 
-#endif //_PRICODER_H_
+#endif //_QUANTCODER_H_

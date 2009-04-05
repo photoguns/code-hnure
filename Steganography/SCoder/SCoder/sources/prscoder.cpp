@@ -22,13 +22,16 @@ PRSCoder::~PRSCoder()
 ////////////////////////////////////////////////////////////////////////////////
 
 
-void PRSCoder::HideMessage ( Container* _container, const std::string& _message, 
+void PRSCoder::SetMessage ( Container* _container, const std::string& _message, 
                              const Key* _key )
 {
+    // Must be a PRS key
     if ( _key->IsPRSKey() )
     {
         const PRSKey* key = static_cast<const PRSKey*>(_key);
-        LSBCoder::HideMessage(_container, key->ApplyPRSKey(_message));
+
+        // Apply PRS key on message and hide it using LSB algorithm
+        LSBCoder::SetMessage( _container, key->ApplyPRSKey(_message) );
     }
 }
 
@@ -38,9 +41,12 @@ void PRSCoder::HideMessage ( Container* _container, const std::string& _message,
 
 std::string PRSCoder::GetMessage ( const Container* _container, const Key* _key )
 {
+    // Must be a PRS key
     if ( _key->IsPRSKey() )
     {
         const PRSKey* key = static_cast<const PRSKey*>(_key);
+
+        // Get message using LSB algorithm and apply PRS key
         return key->ApplyPRSKey(LSBCoder::GetMessage(_container) );
     }
 

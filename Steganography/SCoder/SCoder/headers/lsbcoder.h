@@ -6,10 +6,10 @@
 #include <vector>
 #include <bitset>
 #include <limits>
+
 #include "coder.h"
 #include "bmpcontainer.h"
 
-class BMPContainer;
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -18,7 +18,7 @@ class BMPContainer;
 *
 *  @author  Roman Pasechnik
 *  @since   Mar 25th, 2009
-*  @updated Apr 02th, 2009
+*  @updated Apr 04th, 2009
 *
 */
 class LSBCoder: public Coder
@@ -35,13 +35,13 @@ public:
 
 
     /** Destructor */
-	virtual ~LSBCoder();
+    virtual ~LSBCoder();
 
 
     /** Puts the message into container */
-    virtual void HideMessage ( Container* _container,
-                               const std::string& message,
-                               const Key* _key = NULL );
+    virtual void SetMessage ( Container* _container,
+                              const std::string& message,
+                              const Key* _key = NULL );
 
 
     /** Gets the message from container */
@@ -59,11 +59,11 @@ private:
     /** Quantity of bits in char and size_t types */
     enum
     {
-        bitsInChar = std::numeric_limits<char>::digits,
+        bitsInChar = std::numeric_limits<unsigned char>::digits,
         bitsInSizeT = std::numeric_limits<size_t>::digits
     };
 
-
+    
     /** Utility type: bitset for one char */
     typedef std::bitset<bitsInChar> CharBitset;
 
@@ -76,15 +76,40 @@ private:
     typedef std::bitset<bitsInSizeT> SizeTBitset;
 
 
-    /** Current pixel */
-    RGBApixel m_Pixel;
+////////////////////////////////////////////////////////////////////////////////
+
+private:
+
+////////////////////////////////////////////////////////////////////////////////
 
 
-    /** Current pixel coordinates */
-    int m_CurrHeight;
-    int m_CurrWidth;
+    /** Set current container */
+    void SetContainer( const BMPContainer* _container );
 
 
+    /** Gets message length from container */
+    unsigned long GetMessageLength();
+
+
+    /** Writes message length to container */
+    void SetMessageLength( size_t _length );
+
+
+    /** Gets message from container */
+    std::string GetMessageText( size_t _length );
+
+
+    /** Writes message to container */
+    void SetMessageText( const std::string& _message );
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+private:
+
+////////////////////////////////////////////////////////////////////////////////
+
+    
     /** RGB */
     enum Colour
     {
@@ -94,43 +119,20 @@ private:
     };
 
 
-    /** Current color in current pixel */
-    Colour m_Colour;
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-private:
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-    /** Clear data from previous operations */
-    void Reset();
-
-
-    /** Writes message length to container */
-    void HideMessageLength ( BMPContainer* _container, size_t _length );
-
-
-    /** Writes message to container */
-    void HideMessageText ( BMPContainer* _container, const std::string& _message );
-
-
-    /** Gets message length from container */
-    unsigned long GetMessageLength ( const BMPContainer* _container );
-
-
-    /** Gets message from container */
-    std::string GetMessageText ( const BMPContainer* _container, size_t _length );
-
-
     /** Reads bit from container */
-    virtual bool ReadBit ( const BMPContainer* _container, bool& _bit );
+    virtual bool GetBit( bool* _bit );
 
 
     /** Writes bit in container */
-    virtual bool WriteBit ( BMPContainer* _container, bool _bit );
+    virtual bool SetBit( bool _bit );
+
+
+    /** Sets current pixels current colour */
+    Colour GetCurrColour() const;
+
+
+    /** Sets current pixels current colour */
+    void SetCurrColour( Colour _colour );
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -140,16 +142,64 @@ protected:
 ////////////////////////////////////////////////////////////////////////////////
 
 
-    /** Returns next pixel to take bytes from */
-    virtual bool GetNextPixel ( const BMPContainer* _container, RGBApixel& _pixel);
+    /** Setup the container */
+    virtual void SetupContainer( const BMPContainer* _container );
 
 
-    /** Returns next byte to write in */
-    bool GetNextByte ( const BMPContainer* _container, unsigned char& _byte );
+	/** Get current container for read */
+	const BMPContainer* GetContainer() const;
 
 
-    /** Returns next byte to write in */
-    void SetByte ( BMPContainer* _container, unsigned char _byte );
+	/** Get current container for write */
+	BMPContainer* GetContainer();
+
+
+    /** Set current coordinates for next pixel */
+    virtual bool JumpToNextPixel();
+
+
+    /** Gets current image pixel */
+    RGBApixel GetCurrPixel() const;
+
+
+    /** Sets current image pixel */
+    void SetCurrPixel( const RGBApixel& _pixel );
+
+
+	/** Gets image current height and width */
+	void GetCurrPixelPosition( int* _i, int* _j ) const;
+
+
+    /** Sets image current height and width */
+    bool SetCurrPixelPosition( int _i, int _j );
+
+
+    /** Reads byte from current pixel */
+    bool GetByte( unsigned char* _byte );
+
+
+    /** Writes byte to current pixel */
+    void SetByte( unsigned char _byte );
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+private:
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+    /** Current container */
+    BMPContainer* m_Container;
+
+
+    /** Current pixel coordinates */
+    int m_CurrHeight;
+    int m_CurrWidth;
+
+
+    /** Current color in current pixel */
+    Colour m_Colour;
 
 
 ////////////////////////////////////////////////////////////////////////////////

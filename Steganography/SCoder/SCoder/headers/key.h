@@ -5,12 +5,15 @@
 
 #include <string>
 
+////////////////////////////////////////////////////////////////////////////////
+
+
 /** C++ interface class for keys generation
 *
 *
 *  @author  Roman Pasechnik
-*  @since   March 25th, 2009
-*  @updated March 25th, 2009
+*  @since   Mar 25th, 2009
+*  @updated Mar 25th, 2009
 *
 */
 class Key
@@ -35,7 +38,7 @@ public:
 
 
     /** Destructor */
-    virtual ~Key();
+    ~Key();
 
 
     /** Tells if this key is PRI key */
@@ -46,6 +49,12 @@ public:
 
     /** Tells if this key is Block key */
     virtual bool IsBlockKey() const { return false; }
+
+    /** Tells if this key is Block key */
+    virtual bool IsQuantKey() const { return false; }
+
+    /** Tells if this key is Block key */
+    virtual bool IsCrossKey() const { return false; }
 
 
 ////////////////////////////////////////////////////////////////////////////////
