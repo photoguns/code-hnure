@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AOK_LAB_1", "AOK_LAB_1\AOK_LAB_1.vcproj", "{375ED6EA-7B98-4E8F-9AA3-5C3A8EC36D9F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AOK_LAB_3", "AOK_LAB_3\AOK_LAB_3.vcproj", "{35CF5840-B90A-46DA-941D-90930B63F43F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AOK_LAB_4", "AOK_LAB_4\AOK_LAB_4.vcproj", "{6C15A9BE-0B24-439E-9422-2F3666C9D134}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{375ED6EA-7B98-4E8F-9AA3-5C3A8EC36D9F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{375ED6EA-7B98-4E8F-9AA3-5C3A8EC36D9F}.Debug|Win32.Build.0 = Debug|Win32
+		{375ED6EA-7B98-4E8F-9AA3-5C3A8EC36D9F}.Release|Win32.ActiveCfg = Release|Win32
+		{375ED6EA-7B98-4E8F-9AA3-5C3A8EC36D9F}.Release|Win32.Build.0 = Release|Win32
+		{35CF5840-B90A-46DA-941D-90930B63F43F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{35CF5840-B90A-46DA-941D-90930B63F43F}.Debug|Win32.Build.0 = Debug|Win32
+		{35CF5840-B90A-46DA-941D-90930B63F43F}.Release|Win32.ActiveCfg = Release|Win32
+		{35CF5840-B90A-46DA-941D-90930B63F43F}.Release|Win32.Build.0 = Release|Win32
+		{6C15A9BE-0B24-439E-9422-2F3666C9D134}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6C15A9BE-0B24-439E-9422-2F3666C9D134}.Debug|Win32.Build.0 = Debug|Win32
+		{6C15A9BE-0B24-439E-9422-2F3666C9D134}.Release|Win32.ActiveCfg = Release|Win32
+		{6C15A9BE-0B24-439E-9422-2F3666C9D134}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = 
+	EndGlobalSection
+EndGlobal
