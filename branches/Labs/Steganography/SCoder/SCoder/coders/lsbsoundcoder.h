@@ -1,5 +1,5 @@
-#ifndef _LSBCODER_H_
-#define _LSBCODER_H_
+#ifndef _LSBSOUNDCODER_H_
+#define _LSBSOUNDCODER_H_
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -8,7 +8,7 @@
 #include <limits>
 
 #include "coder.h"
-#include "bmpcontainer.h"
+#include "wavcontainer.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -21,7 +21,7 @@
 *  @updated Apr 04th, 2009
 *
 */
-class LSBCoder: public Coder
+class LSBSoundCoder: public Coder
 {
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -31,11 +31,11 @@ public:
 
 
     /** Constructor */
-	LSBCoder();
+    LSBSoundCoder();
 
 
     /** Destructor */
-    virtual ~LSBCoder();
+    virtual ~LSBSoundCoder();
 
 
     /** Puts the message into container */
@@ -63,7 +63,7 @@ private:
         bitsInSizeT = std::numeric_limits<size_t>::digits
     };
 
-    
+
     /** Utility type: bitset for one char */
     typedef std::bitset<bitsInChar> CharBitset;
 
@@ -76,15 +76,15 @@ private:
     typedef std::bitset<bitsInSizeT> SizeTBitset;
 
 
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
 
 private:
 
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
 
 
     /** Set current container */
-    void SetContainer( const BMPContainer* _container );
+    void SetContainer( const WAVContainer* _container );
 
 
     /** Gets message length from container */
@@ -109,15 +109,6 @@ private:
 
 ////////////////////////////////////////////////////////////////////////////////
 
-    
-    /** RGB */
-    enum Colour
-    {
-        Red,
-        Green,
-        Blue
-    };
-
 
     /** Reads bit from container */
     virtual bool GetBit( bool* _bit );
@@ -125,14 +116,6 @@ private:
 
     /** Writes bit in container */
     virtual bool SetBit( bool _bit );
-
-
-    /** Sets current pixels current colour */
-    Colour GetCurrColour() const;
-
-
-    /** Sets current pixels current colour */
-    void SetCurrColour( Colour _colour );
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -143,43 +126,15 @@ protected:
 
 
     /** Setup the container */
-    virtual void SetupContainer( const BMPContainer* _container );
+    virtual void SetupContainer( const WAVContainer* _container );
 
 
-	/** Get current container for read */
-	const BMPContainer* GetContainer() const;
+    /** Get current container for read */
+    const WAVContainer* GetContainer() const;
 
 
-	/** Get current container for write */
-	BMPContainer* GetContainer();
-
-
-    /** Set current coordinates for next pixel */
-    virtual bool JumpToNextPixel();
-
-
-    /** Gets current image pixel */
-    RGBApixel GetCurrPixel() const;
-
-
-    /** Sets current image pixel */
-    void SetCurrPixel( const RGBApixel& _pixel );
-
-
-	/** Gets image current height and width */
-	void GetCurrPixelPosition( int* _i, int* _j ) const;
-
-
-    /** Sets image current height and width */
-    bool SetCurrPixelPosition( int _i, int _j );
-
-
-    /** Reads byte from current pixel */
-    bool GetByte( unsigned char* _byte );
-
-
-    /** Writes byte to current pixel */
-    void SetByte( unsigned char _byte );
+    /** Get current container for write */
+    WAVContainer* GetContainer();
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -190,19 +145,12 @@ private:
 
 
     /** Current container */
-    BMPContainer* m_Container;
+    WAVContainer* m_Container;
 
-
-    /** Current pixel coordinates */
-    int m_CurrHeight;
-    int m_CurrWidth;
-
-
-    /** Current color in current pixel */
-    Colour m_Colour;
+    size_t m_CurrSamplePosition;
 
 
 ////////////////////////////////////////////////////////////////////////////////
 };
 
-#endif //_LSBCODER_H_
+#endif //_LSBSOUNDCODER_H_

@@ -38,7 +38,7 @@ public:
 
 
     /** Destructor */
-    ~Key();
+    virtual ~Key();
 
 
     /** Tells if this key is PRI key */

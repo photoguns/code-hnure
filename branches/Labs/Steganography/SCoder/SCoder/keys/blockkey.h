@@ -36,22 +36,6 @@ public:
     virtual bool IsBlockKey() const { return true; }
 
 
-    ///** Utility type: Point with two coordinates */
-    //typedef std::pair<int, int> Point;
-
-
-    ///** Utility type: Block of points */
-    //typedef std::vector<Point>  Block;
-
-
-    ///** Utility type: Array of Blocks */
-    //typedef std::vector<Block> Blocks;
-
-
-    ///** Get block key */
-    //Blocks GetBlockKey( int _sizeX, int _sizeY ) const;
-
-
     /** Get block key */
     std::vector<int> GetBlockKey( size_t _size ) const;
 

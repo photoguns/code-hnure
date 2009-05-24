@@ -29,6 +29,8 @@ void CrossCoder::SetupContainer( const BMPContainer* _container )
 
     int height = _container->TellHeight();
     SetCurrPixelPosition(height - 1, m_Radius);
+
+    // Center of a cross
     m_BaseHeight = height - 1;
     m_BaseWidth = m_Radius;
 }
@@ -38,6 +40,7 @@ bool CrossCoder::SetBit( bool _bit )
     if ( !JumpToNextPixel() )
         return false;
  
+    // Get pixel
     RGBApixel pixel = GetCurrPixel();
     double lambda = 0.2989 * pixel.Red +
                     0.58662 * pixel.Green +
@@ -46,6 +49,7 @@ bool CrossCoder::SetBit( bool _bit )
     // Ratio
     const double u = 0.2;
 
+    // Modify pixel
     if (_bit)
         pixel.Blue = pixel.Blue + static_cast<unsigned char>(u * lambda);
     else
@@ -67,9 +71,11 @@ bool CrossCoder::GetBit( bool* _bit )
     if ( !JumpToNextPixel() )
         return false;
 
+    // Current pixel position
     int currHeight, currWidth;
     GetCurrPixelPosition(&currHeight, &currWidth);
 
+    // Calculate brightness around the pixel (cross)
     int commonBrightness = 0;
     for (int i = currHeight - m_Radius; i < currHeight; ++i)
     {
@@ -92,7 +98,7 @@ bool CrossCoder::GetBit( bool* _bit )
         commonBrightness += pixel.Blue;
     }
 
-
+    // Get bit value
     *_bit = GetCurrPixel().Blue > commonBrightness / (4 * m_Radius);
 
     // Bit has been read
@@ -113,16 +119,22 @@ bool CrossCoder::JumpToNextPixel()
     int currHeight, currWidth;
     GetCurrPixelPosition(&currHeight, &currWidth);
 
+    
+    // Move down and right
     if ( IsInside(height, width, ++currHeight, ++currWidth) )
     {
         SetCurrPixelPosition(currHeight, currWidth);
     }
+
+    // Move up
     else if ( IsInside(height, width, 
                        m_BaseHeight - m_Radius - 1, m_BaseWidth) )
     {
         m_BaseHeight -= m_Radius + 1;
         SetCurrPixelPosition(m_BaseHeight, m_BaseWidth);
     }
+
+    // Move right
     else if ( IsInside(height, width,
                        m_BaseHeight, m_BaseWidth + m_Radius + 1) )
     {
@@ -130,8 +142,8 @@ bool CrossCoder::JumpToNextPixel()
         SetCurrPixelPosition(m_BaseHeight, m_BaseWidth);
     }
     else
+        // Nowhere to move
         return false;
-     
 
     return true;
 }
@@ -142,8 +154,12 @@ bool CrossCoder::JumpToNextPixel()
 
 bool CrossCoder::IsInside( int _height, int _width, int _currHeight, int _currWidth )
 {
+    // Check borders
     return ! (_currHeight - m_Radius < 0 ||
               _currWidth - m_Radius  < 0 ||
               _currHeight + m_Radius > _height ||
               _currWidth + m_Radius >= _width );
 }
+
+
+////////////////////////////////////////////////////////////////////////////////

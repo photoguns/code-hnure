@@ -22,6 +22,24 @@ BMPContainer::~BMPContainer()
 ////////////////////////////////////////////////////////////////////////////////
 
 
+bool BMPContainer::Open( const std::string& _path )
+{
+    return m_Image.ReadFromFile( _path.c_str() );
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+bool BMPContainer::Save( const std::string& _path )
+{
+    return m_Image.WriteToFile( _path.c_str() );
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
 int BMPContainer::TellHeight() const
 {
      return m_Image.TellHeight();
@@ -40,18 +58,18 @@ int BMPContainer::TellWidth() const
 ////////////////////////////////////////////////////////////////////////////////
 
 
-RGBApixel BMPContainer::GetPixel( int _i, int _j ) const
+RGBApixel BMPContainer::GetPixel( int _width, int _height ) const
 {
-    return m_Image.GetPixel(_i, _j);
+    return m_Image.GetPixel(_width, _height);
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-void BMPContainer::SetPixel( int _i, int _j, const RGBApixel& _pixel )
+void BMPContainer::SetPixel( int _width, int _height, const RGBApixel& _pixel )
 {
-    m_Image.SetPixel(_i, _j, _pixel);
+    m_Image.SetPixel(_width, _height, _pixel);
 }
 
 
