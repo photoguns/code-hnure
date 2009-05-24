@@ -118,7 +118,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="headers;../EasyBMP_1.06;../MD5"
+				AdditionalIncludeDirectories="coders;containers;keys;../easybmp;../md5;../libsndfile"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -137,7 +137,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="libsndfile-1.lib"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="../libsndfile"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
