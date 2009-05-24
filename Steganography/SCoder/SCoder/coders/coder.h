@@ -32,7 +32,7 @@ public:
 
 
     /** Constructor */
-	Coder();
+    Coder();
 
 
     /** Destructor */

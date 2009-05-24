@@ -21,6 +21,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
+			UseOfMFC="0"
 			CharacterSet="1"
 			>
 			<Tool
@@ -41,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="headers;../EasyBMP_1.06;../MD5"
+				AdditionalIncludeDirectories="coders;containers;keys;../easybmp;../md5;../libsndfile"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -61,7 +62,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="libsndfile-1.lib"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="../libsndfile"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -168,41 +171,53 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
+			Name="sources"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\sources\main.cpp"
+				RelativePath=".\main.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\sources\scoder.cpp"
+				RelativePath=".\scoder.cpp"
 				>
 			</File>
 		</Filter>
 		<Filter
-			Name="Header Files"
+			Name="headers"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\headers\scoder.h"
+				RelativePath=".\scoder.h"
 				>
 			</File>
 		</Filter>
 		<Filter
-			Name="containers"
+			Name="keys"
 			>
 			<Filter
 				Name="headers"
 				>
 				<File
-					RelativePath=".\headers\bmpcontainer.h"
+					RelativePath=".\keys\blockkey.h"
 					>
 				</File>
 				<File
-					RelativePath=".\headers\container.h"
+					RelativePath=".\keys\key.h"
+					>
+				</File>
+				<File
+					RelativePath=".\keys\prikey.h"
+					>
+				</File>
+				<File
+					RelativePath=".\keys\prskey.h"
+					>
+				</File>
+				<File
+					RelativePath=".\keys\quantkey.h"
 					>
 				</File>
 			</Filter>
@@ -210,34 +225,38 @@
 				Name="sources"
 				>
 				<File
-					RelativePath=".\sources\bmpcontainer.cpp"
+					RelativePath=".\keys\blockkey.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\sources\container.cpp"
+					RelativePath=".\keys\key.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\keys\prikey.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\keys\prskey.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\keys\quantkey.cpp"
 					>
 				</File>
 			</Filter>
 			<Filter
-				Name="EasyBMP"
+				Name="MD5"
 				>
 				<Filter
 					Name="headers"
 					>
 					<File
-						RelativePath="..\EasyBMP_1.06\EasyBMP.h"
+						RelativePath="..\md5\md5.h"
 						>
 					</File>
 					<File
-						RelativePath="..\EasyBMP_1.06\EasyBMP_BMP.h"
-						>
-					</File>
-					<File
-						RelativePath="..\EasyBMP_1.06\EasyBMP_DataStructures.h"
-						>
-					</File>
-					<File
-						RelativePath="..\EasyBMP_1.06\EasyBMP_VariousBMPutilities.h"
+						RelativePath="..\md5\md5wrapper.h"
 						>
 					</File>
 				</Filter>
@@ -245,7 +264,11 @@
 					Name="sources"
 					>
 					<File
-						RelativePath="..\EasyBMP_1.06\EasyBMP.cpp"
+						RelativePath="..\md5\md5.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\md5\md5wrapper.cpp"
 						>
 					</File>
 				</Filter>
@@ -258,31 +281,43 @@
 				Name="headers"
 				>
 				<File
-					RelativePath=".\headers\blockcoder.h"
+					RelativePath=".\coders\blockcoder.h"
 					>
 				</File>
 				<File
-					RelativePath=".\headers\coder.h"
+					RelativePath=".\coders\coder.h"
 					>
 				</File>
 				<File
-					RelativePath=".\headers\crosscoder.h"
+					RelativePath=".\coders\crosscoder.h"
 					>
 				</File>
 				<File
-					RelativePath=".\headers\lsbcoder.h"
+					RelativePath=".\coders\echocoder.h"
 					>
 				</File>
 				<File
-					RelativePath=".\headers\pricoder.h"
+					RelativePath=".\coders\kochzhaocoder.h"
 					>
 				</File>
 				<File
-					RelativePath=".\headers\prscoder.h"
+					RelativePath=".\coders\lsbcoder.h"
 					>
 				</File>
 				<File
-					RelativePath=".\headers\quantcoder.h"
+					RelativePath=".\coders\lsbsoundcoder.h"
+					>
+				</File>
+				<File
+					RelativePath=".\coders\pricoder.h"
+					>
+				</File>
+				<File
+					RelativePath=".\coders\prscoder.h"
+					>
+				</File>
+				<File
+					RelativePath=".\coders\quantcoder.h"
 					>
 				</File>
 			</Filter>
@@ -290,59 +325,63 @@
 				Name="sources"
 				>
 				<File
-					RelativePath=".\sources\blockcoder.cpp"
+					RelativePath=".\coders\blockcoder.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\sources\coder.cpp"
+					RelativePath=".\coders\coder.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\sources\crosscoder.cpp"
+					RelativePath=".\coders\crosscoder.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\sources\lsbcoder.cpp"
+					RelativePath=".\coders\echocoder.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\sources\pricoder.cpp"
+					RelativePath=".\coders\kochzhaocoder.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\sources\prscoder.cpp"
+					RelativePath=".\coders\lsbcoder.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\sources\quantcoder.cpp"
+					RelativePath=".\coders\lsbsoundcoder.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\coders\pricoder.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\coders\prscoder.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\coders\quantcoder.cpp"
 					>
 				</File>
 			</Filter>
 		</Filter>
 		<Filter
-			Name="keys"
+			Name="containers"
 			>
 			<Filter
 				Name="headers"
 				>
 				<File
-					RelativePath=".\headers\blockkey.h"
+					RelativePath=".\containers\bmpcontainer.h"
 					>
 				</File>
 				<File
-					RelativePath=".\headers\key.h"
+					RelativePath=".\containers\container.h"
 					>
 				</File>
 				<File
-					RelativePath=".\headers\prikey.h"
-					>
-				</File>
-				<File
-					RelativePath=".\headers\prskey.h"
-					>
-				</File>
-				<File
-					RelativePath=".\headers\quantkey.h"
+					RelativePath=".\containers\wavcontainer.h"
 					>
 				</File>
 			</Filter>
@@ -350,38 +389,38 @@
 				Name="sources"
 				>
 				<File
-					RelativePath=".\sources\blockkey.cpp"
+					RelativePath=".\containers\bmpcontainer.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\sources\key.cpp"
+					RelativePath=".\containers\container.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\sources\prikey.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\sources\prskey.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\sources\quantkey.cpp"
+					RelativePath=".\containers\wavecontainer.cpp"
 					>
 				</File>
 			</Filter>
 			<Filter
-				Name="MD5"
+				Name="EasyBMP"
 				>
 				<Filter
 					Name="headers"
 					>
 					<File
-						RelativePath="..\MD5\md5.h"
+						RelativePath="..\easybmp\EasyBMP.h"
 						>
 					</File>
 					<File
-						RelativePath="..\MD5\md5wrapper.h"
+						RelativePath="..\easybmp\EasyBMP_BMP.h"
+						>
+					</File>
+					<File
+						RelativePath="..\easybmp\EasyBMP_DataStructures.h"
+						>
+					</File>
+					<File
+						RelativePath="..\easybmp\EasyBMP_VariousBMPutilities.h"
 						>
 					</File>
 				</Filter>
@@ -389,14 +428,22 @@
 					Name="sources"
 					>
 					<File
-						RelativePath="..\MD5\md5.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\MD5\md5wrapper.cpp"
+						RelativePath="..\easybmp\EasyBMP.cpp"
 						>
 					</File>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="libsndfile"
+				>
+				<File
+					RelativePath="..\libsndfile\sndfile.h"
+					>
+				</File>
+				<File
+					RelativePath="..\libsndfile\sndfile.hh"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>

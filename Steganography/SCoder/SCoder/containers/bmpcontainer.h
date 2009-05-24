@@ -38,6 +38,14 @@ public:
     virtual bool IsBMPContainer() const { return true; }
 
 
+    /** Loads container from file */
+    virtual bool Open( const std::string& _path );
+
+
+    /** Saves container to file */
+    virtual bool Save( const std::string& _path );
+
+
     /** Tells BMP image height in pixels */
     int TellHeight() const;
 
@@ -47,11 +55,11 @@ public:
 
 
     /** Gets BMP image pixel with coordinates (i, j) */
-    RGBApixel GetPixel( int _i, int _j ) const;
+    RGBApixel GetPixel( int _width, int _height ) const;
 
 
     /** Sets BMP image pixel with coordinates (i, j) */
-    void SetPixel( int _i, int _j, const RGBApixel& _pixel );
+    void SetPixel( int _width, int _height, const RGBApixel& _pixel );
 
 
 ////////////////////////////////////////////////////////////////////////////////

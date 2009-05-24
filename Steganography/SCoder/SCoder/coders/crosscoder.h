@@ -56,7 +56,8 @@ private:
     virtual bool JumpToNextPixel();
 
 
-	bool IsInside( int _height, int _width, int _currHeight, int _currWidth );
+    /** Checks if (_currHeight, _currWidth) is inside area (0.._height, 0.._width) */
+    bool IsInside( int _height, int _width, int _currHeight, int _currWidth );
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -64,8 +65,8 @@ private:
 
     // Cross radius
     int m_Radius;
-	int m_BaseHeight;
-	int m_BaseWidth;
+    int m_BaseHeight;
+    int m_BaseWidth;
 
 
 ////////////////////////////////////////////////////////////////////////////////

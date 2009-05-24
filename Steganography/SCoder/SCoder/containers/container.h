@@ -3,6 +3,10 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
+#include <string>
+
+////////////////////////////////////////////////////////////////////////////////
+
 
 /** C++ interface class for containers (BMP images,...)
 *    
@@ -31,6 +35,18 @@ public:
 
     /** Tells if this container is BMP container */
     virtual bool IsBMPContainer() const { return false; }
+
+
+    /** Tells if this container is Wave container */
+    virtual bool IsWaveContainer() const { return false; }
+
+
+    /** Loads container from file */
+    virtual bool Open( const std::string& _path ) = 0;
+
+
+    /** Saves container to file */
+    virtual bool Save( const std::string& _path ) = 0;
 
 
 ////////////////////////////////////////////////////////////////////////////////
