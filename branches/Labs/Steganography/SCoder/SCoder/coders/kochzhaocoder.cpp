@@ -3,11 +3,16 @@
 #include "kochzhaocoder.h"
 #include "bmpcontainer.h"
 
+#define _USE_MATH_DEFINES
+#include "math.h"
+
 ////////////////////////////////////////////////////////////////////////////////
 
 
 KochZhaoCoder::KochZhaoCoder()
-:m_Threshold(253)
+//Increase this parameter if text is not recognized properly
+//May be increased up to 255
+:m_Threshold(25)
 {
 }
 
@@ -23,10 +28,59 @@ KochZhaoCoder::~KochZhaoCoder()
 ////////////////////////////////////////////////////////////////////////////////
 
 
+void KochZhaoCoder::SetMessage( Container* _container,
+                                const std::string& _message, 
+                                const Key* _key )
+{
+    // Must be a PRI key
+    if ( _key->IsPRIKey() )
+    {
+        // Reset data
+        m_CurrKeyIdx = -1;
+
+        const size_t keyLength = 16;
+        const PRIKey* key = static_cast<const PRIKey*>(_key);
+
+        // Get key of keyLength intervals
+        m_Key = key->GetPRIKey(keyLength);
+
+        // Hide message using LSB algorithm
+        LSBCoder::SetMessage(_container, _message);
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+std::string PRICoder::GetMessage( const Container* _container, const Key* _key )
+{
+    // Must be PRI key
+    if ( _key->IsPRIKey() )
+    {
+        // Reset data
+        m_CurrKeyIdx = -1;
+
+        const size_t keyLength = 16;
+        const PRIKey* key = static_cast<const PRIKey*>(_key);
+        m_Key = key->GetPRIKey(keyLength);
+
+        // Get message using LSB algorithm
+        return LSBCoder::GetMessage(_container);
+    }
+
+    // Not a PRI key
+    return "";
+}
+////////////////////////////////////////////////////////////////////////////////
+
+
 void KochZhaoCoder::SetupContainer( const BMPContainer* _container )
 {
     LSBCoder::SetupContainer(_container);
-    SetCurrPixelPosition(-8, 0);
+
+    //Begin from upper left corner
+    SetCurrPixelPosition(-TABLESIZE, 0);
 }
 
 
@@ -39,13 +93,13 @@ bool KochZhaoCoder::SetBit( bool _bit )
         return false;
 
     // Build coefficient table
-    BuildCoefficientTable();
+    ForvardFourierTransform();
 
-    // Set diff
+    // Set difference between two coefficients
     SetDifference(_bit);
 
     // Build colour table
-    ReverseTransform();
+    ReverseFourierTransform();
 
     // Bit has been written
     return true;
@@ -60,8 +114,10 @@ bool KochZhaoCoder::GetBit( bool* _bit )
     if ( !JumpToNextPixel() )
         return false;
 
-    BuildCoefficientTable();
+    // Build coefficient table
+    ForvardFourierTransform();
 
+    // Get difference between two coefficients
     *_bit = GetDifference();
 
     // Bit has been read
@@ -83,14 +139,14 @@ bool KochZhaoCoder::JumpToNextPixel()
     GetCurrPixelPosition(&currHeight, &currWidth);
     
     // Move right
-    currHeight += 8;
-    if (currHeight + 8 > height)
+    currHeight += TABLESIZE;
+    if (currHeight + TABLESIZE > height)
     {
         currHeight = 0;
 
         // Move down
-        currWidth += 8;
-        if (currWidth + 8 > width)
+        currWidth += TABLESIZE;
+        if (currWidth + TABLESIZE > width)
             
             // Nowhere to move. Stop.
             return false;
@@ -104,35 +160,43 @@ bool KochZhaoCoder::JumpToNextPixel()
 ////////////////////////////////////////////////////////////////////////////////
 
 
-void KochZhaoCoder::BuildCoefficientTable()
+void KochZhaoCoder::ForvardFourierTransform()
 {
-    for (int u = 0; u < 8; ++u)
-        for (int v = 0; v < 8; ++v)
-            m_FourierCoefficients[u][v] = Sigma(u) * Sigma(v) * Sum(u, v);
+    // Fucking math! I hate it =)
+    for (int u = 0; u < TABLESIZE; ++u)
+        for (int v = 0; v < TABLESIZE; ++v)
+            m_FourierCoefficients[u][v] = Sigma(u) * Sigma(v) * SumForvard(u, v);
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-void KochZhaoCoder::ReverseTransform()
+void KochZhaoCoder::ReverseFourierTransform()
 {
     int height, width;
     GetCurrPixelPosition(&height, &width);
     
     double result;
 
-    for (int x = 0; x < 8; ++x)
-        for (int y = 0; y < 8; ++y)
+    for (int x = 0; x < TABLESIZE; ++x)
+        for (int y = 0; y < TABLESIZE; ++y)
         {
+            // Get pixel
             RGBApixel pixel = GetContainer()->GetPixel(height + x, width + y);
-            result = Sum2(x, y);
+
+            // Get red colour from modified table
+            result = SumReverse(x, y);
+
+            // Normalize result
             if (result > 255)
                 result = 255;
             else if (result < 0)
                 result = 0;
 
             pixel.Red = static_cast<unsigned char>(result);
+            
+            // Set modified pixel
             GetContainer()->SetPixel(height + x, width + y, pixel);
         }
 }
@@ -143,6 +207,7 @@ void KochZhaoCoder::ReverseTransform()
 
 double KochZhaoCoder::Sigma(int _u)
 {
+    // Magic comes here
     return _u == 0 ? 0.35355339056 : 0.5;
 }
 
@@ -150,23 +215,23 @@ double KochZhaoCoder::Sigma(int _u)
 ////////////////////////////////////////////////////////////////////////////////
 
 
-double KochZhaoCoder::Sum(int _u, int _v)
+double KochZhaoCoder::SumForvard(int _u, int _v)
 {
     int height, width;
     GetCurrPixelPosition(&height, &width);
 
     double sum = 0;
 
-    for (int x = 0; x < 8; ++x)
-        for (int y = 0; y < 8; ++y)
+    for (int x = 0; x < TABLESIZE; ++x)
+        for (int y = 0; y < TABLESIZE; ++y)
         {
             double colour = GetContainer()->GetPixel(x + height, y + width).Red;
-            double cos1 = cos( 3.1415926535 *
+            double cos1 = cos( M_PI *
                                static_cast<double>(_u) *
-                               static_cast<double>(2 * x + 1) / 16.0 );
-            double cos2 = cos( 3.14159265 *
+                               static_cast<double>(2 * x + 1) / static_cast<double>(TABLESIZE * 2) );
+            double cos2 = cos( M_PI *
                                static_cast<double>(_v) *
-                               static_cast<double>(2 * y + 1) / 16.0 );
+                               static_cast<double>(2 * y + 1) / static_cast<double>(TABLESIZE * 2) );
             sum += colour * cos1 * cos2;
         }
             
@@ -179,19 +244,19 @@ double KochZhaoCoder::Sum(int _u, int _v)
 ////////////////////////////////////////////////////////////////////////////////
 
 
-double KochZhaoCoder::Sum2(int _x, int _y)
+double KochZhaoCoder::SumReverse(int _x, int _y)
 {
     double sum = 0;
 
-    for (int u = 0; u < 8; ++u)
-        for (int v = 0; v < 8; ++v)
+    for (int u = 0; u < TABLESIZE; ++u)
+        for (int v = 0; v < TABLESIZE; ++v)
         {
-            double cos1 = cos( 3.1415926535 *
+            double cos1 = cos( M_PI *
                                static_cast<double>(u) *
-                               static_cast<double>(2 * _x + 1) / 16.0 );
-            double cos2 = cos( 3.1415926535 *
+                               static_cast<double>(2 * _x + 1) / static_cast<double>(TABLESIZE * 2) );
+            double cos2 = cos( M_PI *
                                static_cast<double>(v) *
-                               static_cast<double>(2 * _y + 1) / 16.0 );
+                               static_cast<double>(2 * _y + 1) / static_cast<double>(TABLESIZE * 2) );
             sum += Sigma(u) * Sigma(v) * m_FourierCoefficients[u][v] * cos1 * cos2;
         }
 
@@ -204,9 +269,11 @@ double KochZhaoCoder::Sum2(int _x, int _y)
 
 void KochZhaoCoder::SetDifference(bool _bit)
 {
+    // Take these two coefficients to hide the bit
     double& c1 = m_FourierCoefficients[2][2];
     double& c2 = m_FourierCoefficients[2][3];
 
+    // Hell manipulation with numbers
     if (_bit)
     {
         while (abs(c1) - abs(c2) >= -m_Threshold)

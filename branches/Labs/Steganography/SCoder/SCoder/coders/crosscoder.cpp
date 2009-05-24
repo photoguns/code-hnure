@@ -8,6 +8,7 @@
 
 CrossCoder::CrossCoder()
 {
+    // Default radius for cross - 2 pixels
     m_Radius = 2;
 }
 
@@ -26,14 +27,18 @@ CrossCoder::~CrossCoder()
 void CrossCoder::SetupContainer( const BMPContainer* _container )
 {
     LSBCoder::SetupContainer(_container);
-
     int height = _container->TellHeight();
-    SetCurrPixelPosition(height - 1, m_Radius);
 
     // Center of a cross
     m_BaseHeight = height - 1;
     m_BaseWidth = m_Radius;
+
+    SetCurrPixelPosition(m_BaseHeight , m_BaseWidth);
 }
+
+
+////////////////////////////////////////////////////////////////////////////////
+
 
 bool CrossCoder::SetBit( bool _bit )
 {
@@ -42,11 +47,13 @@ bool CrossCoder::SetBit( bool _bit )
  
     // Get pixel
     RGBApixel pixel = GetCurrPixel();
+
+    // Some magic numbers xD
     double lambda = 0.2989 * pixel.Red +
                     0.58662 * pixel.Green +
                     0.11448 * pixel.Blue;
 
-    // Ratio
+    // Ratio (increase it if text is not recognized properly)
     const double u = 0.2;
 
     // Modify pixel
@@ -77,21 +84,26 @@ bool CrossCoder::GetBit( bool* _bit )
 
     // Calculate brightness around the pixel (cross)
     int commonBrightness = 0;
+
+    // Up
     for (int i = currHeight - m_Radius; i < currHeight; ++i)
     {
         RGBApixel pixel = GetContainer()->GetPixel(i, currWidth);
         commonBrightness += pixel.Blue;
     }
+    // Down
     for (int i = currHeight + m_Radius; i > currHeight; --i)
     {
         RGBApixel pixel = GetContainer()->GetPixel(i, currWidth);
         commonBrightness += pixel.Blue;
     }
+    // Left
     for (int i = currWidth - m_Radius; i < currWidth; ++i)
     {
         RGBApixel pixel = GetContainer()->GetPixel(currHeight, i);
         commonBrightness += pixel.Blue;
     }
+    // Right
     for (int i = currWidth + m_Radius; i > currWidth; --i)
     {
         RGBApixel pixel = GetContainer()->GetPixel(currHeight, i);
@@ -122,9 +134,7 @@ bool CrossCoder::JumpToNextPixel()
     
     // Move down and right
     if ( IsInside(height, width, ++currHeight, ++currWidth) )
-    {
         SetCurrPixelPosition(currHeight, currWidth);
-    }
 
     // Move up
     else if ( IsInside(height, width, 
