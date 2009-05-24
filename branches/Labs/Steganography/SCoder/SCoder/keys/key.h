@@ -56,6 +56,9 @@ public:
     /** Tells if this key is Block key */
     virtual bool IsCrossKey() const { return false; }
 
+    /** Tells if this key is Block key */
+    virtual bool IsKochZhaoKey() const { return false; }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 

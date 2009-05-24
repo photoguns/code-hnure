@@ -14,7 +14,7 @@
 *
 *  @author  Roman Pasechnik
 *  @since   Apr 04th, 2009
-*  @updated Apr 05th, 2009
+*  @updated May 24th, 2009
 *
 */
 class QuantCoder: public LSBCoder
@@ -52,11 +52,11 @@ private:
 
 
     /** Special handling in this coder */
-    virtual bool WriteBit( BMPContainer* _container, bool _bit );
+    virtual bool SetBit( bool _bit );
 
 
     /** Special handling in this coder */
-    virtual bool ReadBit( const BMPContainer* _container, bool& _bit );
+    virtual bool GetBit( bool* _bit );
 
 
     /** Gets nearest brightness position in quantization table with equal bit */

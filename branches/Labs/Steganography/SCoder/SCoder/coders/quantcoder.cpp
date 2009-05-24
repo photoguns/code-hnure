@@ -70,7 +70,7 @@ std::string QuantCoder::GetMessage ( const Container* _container, const Key* _ke
 ////////////////////////////////////////////////////////////////////////////////
 
 
-bool QuantCoder::WriteBit( BMPContainer* _container, bool _bit )
+bool QuantCoder::SetBit( bool _bit )
 {
     // Get next byte for writing
     unsigned char byte;
@@ -143,7 +143,7 @@ int QuantCoder::GetNearestDifference( int _difference, bool _bit )
 ////////////////////////////////////////////////////////////////////////////////
 
 
-bool QuantCoder::ReadBit( const BMPContainer* _container, bool& _bit )
+bool QuantCoder::GetBit( bool* _bit )
 {
     // Byte
     unsigned char byte;
@@ -153,7 +153,7 @@ bool QuantCoder::ReadBit( const BMPContainer* _container, bool& _bit )
         return false;
 
     // Read its value from quantization table
-    _bit = m_Key[static_cast<int>(byte) - static_cast<int>(m_PrevByte) + 255];
+    *_bit = m_Key[static_cast<int>(byte) - static_cast<int>(m_PrevByte) + 255];
 
     // Update previous byte
     m_PrevByte = byte;

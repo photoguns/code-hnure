@@ -40,8 +40,12 @@ public:
     typedef std::pair<int, int> Coord;
 
 
+    /** Utility type: coordinate of a point in a table */
+    typedef std::pair<Coord, Coord> TwoCoords;
+
+
     /** Get Koch-Zhao Key for square table with _tableSize side */
-    std::pair<Coord, Coord> GetKochZhaoKey( size_t _tableSize ) const;
+    TwoCoords GetKochZhaoKey( size_t _tableSize ) const;
 
 
 ////////////////////////////////////////////////////////////////////////////////

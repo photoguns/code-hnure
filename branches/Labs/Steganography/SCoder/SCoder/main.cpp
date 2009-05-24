@@ -6,10 +6,10 @@ int main()
     Container* container = GetBMPContainer("1.bmp");
 
     //Create coder
-    Coder* coder = GetBlockCoder();
+    Coder* coder = GetQuantCoder();
 
     //Create key
-    Key* key = GetBlockKey("On Air:  Acues - Existrance 14 on AH.FM 23-05-2009 [REPLAY]", Key::STRING);
+    Key* key = GetQuantKey("On Air:  Acues - Existrance 14 on AH.FM 23-05-2009 [REPLAY]", Key::STRING);
 
     //Hide message into container
     coder->SetMessage(container, "Ashley Wallbridge Feat Meighan Nealon - My Blood (TyDi Remix)", key);

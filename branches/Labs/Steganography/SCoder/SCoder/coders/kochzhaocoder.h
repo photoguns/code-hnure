@@ -13,7 +13,7 @@
 *
 *  @author  Roman Pasechnik
 *  @since   May 16th, 2009
-*  @updated May 16th, 2009
+*  @updated May 24th, 2009
 *
 */
 class KochZhaoCoder: public LSBCoder
@@ -111,8 +111,8 @@ private:
 
 
     /** Two Fourier coefficients where the bit is hidden */
-    double& m_C1;
-    double& m_C2;
+    double* m_C1;
+    double* m_C2;
 
 
 ////////////////////////////////////////////////////////////////////////////////
