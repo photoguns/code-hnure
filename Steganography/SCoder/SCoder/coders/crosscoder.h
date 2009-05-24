@@ -13,7 +13,7 @@
 *
 *  @author  Roman Pasechnik
 *  @since   Apr 04th, 2009
-*  @updated Apr 04th, 2009
+*  @updated May 24th, 2009
 *
 */
 class CrossCoder: public LSBCoder
@@ -65,6 +65,11 @@ private:
 
     // Cross radius
     int m_Radius;
+
+    // Some variables needed to move wisely through container 
+    // (I don't exactly remember why I need this.. f..k!)
+    //          [Hint: Always comment code, even if it is very simple ))]
+    // It seems they are pointing to a center of a cross
     int m_BaseHeight;
     int m_BaseWidth;
 

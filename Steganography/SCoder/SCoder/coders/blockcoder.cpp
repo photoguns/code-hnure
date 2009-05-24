@@ -24,7 +24,7 @@ BlockCoder::~BlockCoder()
 
 
 void BlockCoder::SetMessage( Container* _container,
-                              const std::string& _message, const Key* _key )
+                             const std::string& _message, const Key* _key )
 {
     // Must be Block key
     if ( _key->IsBlockKey() )
@@ -38,10 +38,6 @@ void BlockCoder::SetMessage( Container* _container,
 
             // Reset data
             m_CurrBlock = 0;
-
-            //// Get container dimensions
-            //const int height = container->TellHeight();
-            //const int width = container->TellWidth();
 
             // Hard coded key length
             const size_t keyLength = 16;
@@ -75,10 +71,6 @@ std::string BlockCoder::GetMessage( const Container* _container,
             // Reset data
             m_CurrBlock = 0;
 
-            //// Get container dimensions
-            //const int height = container->TellHeight();
-            //const int width = container->TellWidth();
-
             // Hard coded key length
             const size_t keyLength = 16;
 
@@ -98,40 +90,13 @@ std::string BlockCoder::GetMessage( const Container* _container,
 ////////////////////////////////////////////////////////////////////////////////
 
 
-bool BlockCoder::WriteBit( BMPContainer* _container, bool _bit )
+bool BlockCoder::SetBit( bool _bit )
 {
-    //// Get next block
-    //const BlockKey::Block& block = m_Key[m_CurrBlock];
-
-    //// Last pixel in a block
-    //RGBApixel pixel;
-
-    //// Count even bit of block
-    //for (size_t i = 0; i < block.size(); ++i)
-    //{
-    //    // Get block pixel
-    //    pixel = _container->GetPixel(block[i].first, block[i].second);
-
-    //    if ( PixelEvenBit(pixel) )
-    //        evenBit = !evenBit;
-    //}
-
-    //// Invert LSB
-    //if (_bit != evenBit)
-    //{
-    //    std::bitset<std::numeric_limits<unsigned char>::digits> byte(pixel.Red);
-    //    byte[0] = !byte[0];
-    //    pixel.Red = static_cast<unsigned char>( byte.to_ulong() );
-
-    //    // Write modified pixel
-    //    _container->SetPixel(block.back().first, block.back().second, pixel);
-    //}
-
-    // Even bit
-    bool evenBit = false;
+    // Parity bit - sum of all LSBs in a block
+    bool parityBit = false;
 
     // Last byte in a block
-    unsigned char byte;
+    unsigned char byte = 0;
 
     for (int i = 0; i < m_Key[m_CurrBlock]; ++i)
     {
@@ -140,15 +105,20 @@ bool BlockCoder::WriteBit( BMPContainer* _container, bool _bit )
             return false;
 
         if ( byte % 2 )
-            evenBit = !evenBit;
+            parityBit = !parityBit;
     }
 
     // Invert LSB
-    if (_bit != evenBit)
+    if (_bit != parityBit)
     {
-        std::bitset<std::numeric_limits<unsigned char>::digits> bits(byte);
-        bits[0] = !bits[0];
-        byte = static_cast<unsigned char>( bits.to_ulong() );
+        // Get copy of byte
+        unsigned char copy = byte;
+
+        // Reset LSB
+        byte &= 254;
+
+        // Invert LSB and OR with original
+        byte |= (~copy & 1);
 
         // Write modified byte
         SetByte(byte);
@@ -165,27 +135,10 @@ bool BlockCoder::WriteBit( BMPContainer* _container, bool _bit )
 ////////////////////////////////////////////////////////////////////////////////
 
 
-bool BlockCoder::ReadBit( const BMPContainer* _container, bool& _bit )
+bool BlockCoder::GetBit( bool* _bit )
 {
-    //// Get next block
-    //const BlockKey::Block& block = m_Key[m_CurrBlock];
-
-    //// Even bit
-    //_bit = false;
-
-    //// Count even bit of block
-    //for (size_t i = 0; i < block.size(); ++i)
-    //{
-    //    // Get block pixel
-    //    RGBApixel pixel = _container->GetPixel(block[i].first,
-    //                                           block[i].second);
-
-    //    if ( PixelEvenBit(pixel) )
-    //        _bit = !_bit;
-    //}
-
-    // Even bit
-    _bit = false;
+    // Parity bit - sum of all LSBs in a block
+    *_bit = false;
 
     for (int i = 0; i < m_Key[m_CurrBlock]; ++i)
     {
@@ -197,7 +150,7 @@ bool BlockCoder::ReadBit( const BMPContainer* _container, bool& _bit )
             return false;
 
         if ( byte % 2 )
-            _bit = !_bit;
+            *_bit = !(*_bit);
     }
 
     // Prepare next block for next bit
@@ -206,18 +159,6 @@ bool BlockCoder::ReadBit( const BMPContainer* _container, bool& _bit )
     // Bit has been read
     return true;
 }
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-//bool BlockCoder::PixelEvenBit( const RGBApixel& pixel ) const
-//{
-//    if ( (pixel.Red + pixel.Green + pixel.Blue) % 2 )
-//        return true;
-//    else
-//        return false;
-//}
 
 
 ////////////////////////////////////////////////////////////////////////////////

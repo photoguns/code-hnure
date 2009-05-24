@@ -211,6 +211,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\keys\kochzhaokey.h"
+					>
+				</File>
+				<File
 					RelativePath=".\keys\prikey.h"
 					>
 				</File>
@@ -232,6 +236,10 @@
 				</File>
 				<File
 					RelativePath=".\keys\key.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\keys\kochzhaokey.cpp"
 					>
 				</File>
 				<File

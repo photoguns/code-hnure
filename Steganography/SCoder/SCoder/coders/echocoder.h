@@ -9,7 +9,7 @@
 
 
 /** C++ class for stegano -coding -encoding based on echo algorithm
-*
+*   Use it with some sound container
 *
 *  @author  Roman Pasechnik
 *  @since   May 23rd, 2009

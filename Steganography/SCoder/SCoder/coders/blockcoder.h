@@ -4,7 +4,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "lsbcoder.h"
-#include "blockkey.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -14,7 +13,7 @@
 *
 *  @author  Roman Pasechnik
 *  @since   Mar 25th, 2009
-*  @updated Apr 02th, 2009
+*  @updated May 24th, 2009
 *
 */
 class BlockCoder: public LSBCoder
@@ -36,8 +35,8 @@ public:
 
     /** Puts the message into container */
     virtual void SetMessage( Container* _container,
-                              const std::string& _message,
-                              const Key* _key );
+                             const std::string& _message,
+                             const Key* _key );
 
 
     /** Gets the message from container */
@@ -53,22 +52,17 @@ private:
 
 
     /** Special handling for Block algorithm */
-    virtual bool WriteBit( BMPContainer* _container, bool _bit );
+    virtual bool SetBit( bool _bit );
 
 
     /** Special handling for Block algorithm */
-    virtual bool ReadBit( const BMPContainer* _container, bool& _bit );
-
-
-    ///** Calculates even bit of a pixel */
-    //bool PixelEvenBit( const RGBApixel& pixel ) const;
+    virtual bool GetBit( bool* _bit );
 
 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-    ///** PRS Key */
-    //BlockKey::Blocks m_Key;
+    /** Block Key */
     std::vector<int> m_Key;
 
 
