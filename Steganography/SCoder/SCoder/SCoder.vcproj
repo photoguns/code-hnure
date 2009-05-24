@@ -407,7 +407,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\containers\wavecontainer.cpp"
+					RelativePath=".\containers\wavcontainer.cpp"
 					>
 				</File>
 			</Filter>

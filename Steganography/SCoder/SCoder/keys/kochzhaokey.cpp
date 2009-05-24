@@ -1,8 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <sstream>
 #include "kochzhaokey.h"
-
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -24,51 +22,23 @@ KochZhaoKey::~KochZhaoKey()
 ////////////////////////////////////////////////////////////////////////////////
 
 
-std::vector<int> KochZhaoKey::GetKochZhaoKey( size_t _tableSize )
+KochZhaoKey::TwoCoords KochZhaoKey::GetKochZhaoKey( size_t _tableSize ) const
 {
     // Get key hash
     std::string keyHash = GetKeyHash();
 
     size_t middle = _tableSize / 2;
 
+    // Key -- pair of two coordinates
     Coord first(middle, middle);
     Coord second(middle, middle);
 
-    int number;
+    // Just modify coordinates slightly
+    first.first -= (keyHash[0] % 2);
+    first.second -= (keyHash[1] % 2);
+    second.first += (keyHash[2] % 2) + 1;
+    second.second += (keyHash[3] % 2) + 1;
 
-    std::stringstream stream;
-    stream << std::hex << keyHash[0];
-    stream >> number;
-    first.first -= (number % 3) + 1;
-
-    stream << std::hex << keyHash[1];
-    stream >> number;
-    first.second -= (number % 3) + 1;
-
-    stream << std::hex << keyHash[1];
-    stream >> number;
-    first.second -= (number % 3) + 1;
-
-    stream << std::hex << keyHash[1];
-    stream >> number;
-    first.second -= (number % 3) + 1;
-
-    // Key hash length
-    size_t hashLength = keyHash.length();
-
-    // Key -- pair of two coordinates
-    
-    {
-        // Next interval
-        int number;
-
-        // Convert char to integer
-        
-
-        // Add interval
-        key.push_back(number);
-    }
-
-    return key;
+    return std::make_pair(first, second);
 }
 

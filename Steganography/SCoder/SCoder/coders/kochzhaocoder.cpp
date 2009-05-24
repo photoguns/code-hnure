@@ -2,6 +2,7 @@
 
 #include "kochzhaocoder.h"
 #include "bmpcontainer.h"
+#include "kochzhaokey.h"
 
 #define _USE_MATH_DEFINES
 #include "math.h"
@@ -12,7 +13,9 @@
 KochZhaoCoder::KochZhaoCoder()
 //Increase this parameter if text is not recognized properly
 //May be increased up to 255
-:m_Threshold(25)
+:m_Threshold(150),
+m_C1(NULL),
+m_C2(NULL)
 {
 }
 
@@ -29,20 +32,19 @@ KochZhaoCoder::~KochZhaoCoder()
 
 
 void KochZhaoCoder::SetMessage( Container* _container,
-                                const std::string& _message, 
-                                const Key* _key )
+                               const std::string& _message, 
+                               const Key* _key )
 {
-    // Must be a PRI key
-    if ( _key->IsPRIKey() )
+    // Must be a Koch-Zhao key
+    if ( _key->IsKochZhaoKey() )
     {
-        // Reset data
-        m_CurrKeyIdx = -1;
+        const KochZhaoKey* key = static_cast<const KochZhaoKey*>(_key);
 
-        const size_t keyLength = 16;
-        const PRIKey* key = static_cast<const PRIKey*>(_key);
+        // Get key -- two coordinates of Fourier coefficients in table
+        KochZhaoKey::TwoCoords coords = key->GetKochZhaoKey(TABLESIZE);
 
-        // Get key of keyLength intervals
-        m_Key = key->GetPRIKey(keyLength);
+        m_C1 = &m_FourierCoefficients[coords.first.first][coords.first.second];
+        m_C2 = &m_FourierCoefficients[coords.second.first][coords.second.second];
 
         // Hide message using LSB algorithm
         LSBCoder::SetMessage(_container, _message);
@@ -53,17 +55,18 @@ void KochZhaoCoder::SetMessage( Container* _container,
 ////////////////////////////////////////////////////////////////////////////////
 
 
-std::string PRICoder::GetMessage( const Container* _container, const Key* _key )
+std::string KochZhaoCoder::GetMessage( const Container* _container, const Key* _key )
 {
-    // Must be PRI key
-    if ( _key->IsPRIKey() )
+    // Must be a Koch-Zhao key
+    if ( _key->IsKochZhaoKey() )
     {
-        // Reset data
-        m_CurrKeyIdx = -1;
+        const KochZhaoKey* key = static_cast<const KochZhaoKey*>(_key);
 
-        const size_t keyLength = 16;
-        const PRIKey* key = static_cast<const PRIKey*>(_key);
-        m_Key = key->GetPRIKey(keyLength);
+        // Get key -- two coordinates of Fourier coefficients in table
+        KochZhaoKey::TwoCoords coords = key->GetKochZhaoKey(TABLESIZE);
+
+        m_C1 = &m_FourierCoefficients[coords.first.first][coords.first.second];
+        m_C2 = &m_FourierCoefficients[coords.second.first][coords.second.second];
 
         // Get message using LSB algorithm
         return LSBCoder::GetMessage(_container);
@@ -137,7 +140,7 @@ bool KochZhaoCoder::JumpToNextPixel()
 
     int currHeight, currWidth;
     GetCurrPixelPosition(&currHeight, &currWidth);
-    
+
     // Move right
     currHeight += TABLESIZE;
     if (currHeight + TABLESIZE > height)
@@ -147,7 +150,7 @@ bool KochZhaoCoder::JumpToNextPixel()
         // Move down
         currWidth += TABLESIZE;
         if (currWidth + TABLESIZE > width)
-            
+
             // Nowhere to move. Stop.
             return false;
     }
@@ -176,7 +179,7 @@ void KochZhaoCoder::ReverseFourierTransform()
 {
     int height, width;
     GetCurrPixelPosition(&height, &width);
-    
+
     double result;
 
     for (int x = 0; x < TABLESIZE; ++x)
@@ -195,7 +198,7 @@ void KochZhaoCoder::ReverseFourierTransform()
                 result = 0;
 
             pixel.Red = static_cast<unsigned char>(result);
-            
+
             // Set modified pixel
             GetContainer()->SetPixel(height + x, width + y, pixel);
         }
@@ -217,27 +220,27 @@ double KochZhaoCoder::Sigma(int _u)
 
 double KochZhaoCoder::SumForvard(int _u, int _v)
 {
+    // Get current pixel position
     int height, width;
     GetCurrPixelPosition(&height, &width);
 
     double sum = 0;
 
+    // Maaaaaagic, its everywhere
     for (int x = 0; x < TABLESIZE; ++x)
         for (int y = 0; y < TABLESIZE; ++y)
         {
             double colour = GetContainer()->GetPixel(x + height, y + width).Red;
             double cos1 = cos( M_PI *
-                               static_cast<double>(_u) *
-                               static_cast<double>(2 * x + 1) / static_cast<double>(TABLESIZE * 2) );
+                static_cast<double>(_u) *
+                static_cast<double>(2 * x + 1) / static_cast<double>(TABLESIZE * 2) );
             double cos2 = cos( M_PI *
-                               static_cast<double>(_v) *
-                               static_cast<double>(2 * y + 1) / static_cast<double>(TABLESIZE * 2) );
+                static_cast<double>(_v) *
+                static_cast<double>(2 * y + 1) / static_cast<double>(TABLESIZE * 2) );
             sum += colour * cos1 * cos2;
         }
-            
-            
 
-    return sum;
+        return sum;
 }
 
 
@@ -252,15 +255,15 @@ double KochZhaoCoder::SumReverse(int _x, int _y)
         for (int v = 0; v < TABLESIZE; ++v)
         {
             double cos1 = cos( M_PI *
-                               static_cast<double>(u) *
-                               static_cast<double>(2 * _x + 1) / static_cast<double>(TABLESIZE * 2) );
+                static_cast<double>(u) *
+                static_cast<double>(2 * _x + 1) / static_cast<double>(TABLESIZE * 2) );
             double cos2 = cos( M_PI *
-                               static_cast<double>(v) *
-                               static_cast<double>(2 * _y + 1) / static_cast<double>(TABLESIZE * 2) );
+                static_cast<double>(v) *
+                static_cast<double>(2 * _y + 1) / static_cast<double>(TABLESIZE * 2) );
             sum += Sigma(u) * Sigma(v) * m_FourierCoefficients[u][v] * cos1 * cos2;
         }
 
-    return sum;
+        return sum;
 }
 
 
@@ -269,39 +272,41 @@ double KochZhaoCoder::SumReverse(int _x, int _y)
 
 void KochZhaoCoder::SetDifference(bool _bit)
 {
-    // Take these two coefficients to hide the bit
-    double& c1 = m_FourierCoefficients[2][2];
-    double& c2 = m_FourierCoefficients[2][3];
-
     // Hell manipulation with numbers
     if (_bit)
     {
-        while (abs(c1) - abs(c2) >= -m_Threshold)
+        // Difference between these two coefficients 
+        // must not be greater than -m_Threshold
+        // this case will hide bit, which value is 1
+        while (abs(*m_C1) - abs(*m_C2) >= -m_Threshold)
         {
-            if (c1 < 0)
-                ++c1;
+            if (*m_C1 < 0)
+                ++*m_C1;
             else
-                --c1;
+                --*m_C1;
 
-            if (c2 < 0 && c2 > -255)
-                --c2;
-            else if (c2 >= 0 && c2 < 255)
-                ++c2;
+            if (*m_C2 < 0 && *m_C2 > -255)
+                --*m_C2;
+            else if (*m_C2 >= 0 && *m_C2 < 255)
+                ++*m_C2;
         }
     }
     else
     {
-        while (abs(c1) - abs(c2) <= m_Threshold)
+        // Difference between these two coefficients 
+        // must not be smaller than -m_Threshold
+        // this case will hide bit, which value is 0
+        while (abs(*m_C1) - abs(*m_C2) <= m_Threshold)
         {
-            if (c1 > 0 && c1 < 255)
-                ++c1;
-            else if (c1 <= 0 && c1 > -255)
-                --c1;
+            if (*m_C1 > 0 && *m_C1 < 255)
+                ++*m_C1;
+            else if (*m_C1 <= 0 && *m_C1 > -255)
+                --*m_C1;
 
-            if (c2 > 0)
-                --c2;
+            if (*m_C2 > 0)
+                --*m_C2;
             else
-                ++c2;
+                ++*m_C2;
         }
     }
 }
@@ -312,9 +317,7 @@ void KochZhaoCoder::SetDifference(bool _bit)
 
 bool KochZhaoCoder::GetDifference()
 {
-    double& c1 = m_FourierCoefficients[2][2];
-    double& c2 = m_FourierCoefficients[2][3];
-    return abs(c1) < abs(c2);
+    return abs(*m_C1) < abs(*m_C2);
 }
 
 

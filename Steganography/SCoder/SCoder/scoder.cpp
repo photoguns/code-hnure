@@ -26,6 +26,7 @@
 #include "prskey.h"
 #include "blockkey.h"
 #include "quantkey.h"
+#include "kochzhaokey.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -39,7 +40,7 @@ Container* GetBMPContainer( const std::string& _fileName )
 ////////////////////////////////////////////////////////////////////////////////
 
 
-Container* GetWaveContainer( const std::string& _fileName )
+Container* GetWAVContainer( const std::string& _fileName )
 {
     return new WAVContainer(_fileName);
 }
@@ -102,7 +103,7 @@ Coder* GetCrossCoder()
 ////////////////////////////////////////////////////////////////////////////////
 
 
-Coder* GetKohaJaoCoder()
+Coder* GetKochZhaoCoder()
 {
     return new KochZhaoCoder();
 }
@@ -159,6 +160,15 @@ Key* GetBlockKey( const std::string& _string, Key::KeyType _type )
 Key* GetQuantKey( const std::string& _string, Key::KeyType _type )
 {
     return new QuantKey(_string, _type);
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+Key* GetKochZhaoKey( const std::string& _string, Key::KeyType _type )
+{
+    return new KochZhaoKey(_string, _type);
 }
 
 
