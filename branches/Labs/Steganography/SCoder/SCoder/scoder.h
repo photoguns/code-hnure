@@ -9,11 +9,26 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
+enum Coders
+{
+    LSB,
+    PRS,
+    PRI,
+    Block,
+    Quant,
+    Cross,
+    Echo
+};
+
+enum Containers
+{
+    IMAGE,
+    SOUND
+};
 
 /** Containers */
 
 Container* GetBMPContainer( const std::string& _fileName );
-
 Container* GetWAVContainer( const std::string& _fileName );
 
 
