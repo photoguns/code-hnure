@@ -58,11 +58,11 @@ int OpenContainerPage::nextId() const
         switch ( aWizard->GetContainerType() )
         {
             // Get message from image
-        case SCoderWizard::IMAGE:
+        case IMAGE:
             return SCoderWizard::IMAGE_ALGORITHM;
 
             // Get message from sound
-        case SCoderWizard::SOUND:
+        case SOUND:
             SCoderWizard::SOUND_ALGORITHM;
         
             // Fail..

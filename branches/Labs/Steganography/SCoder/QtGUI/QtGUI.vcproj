@@ -283,10 +283,6 @@
 				>
 			</File>
 			<File
-				RelativePath="mainwindow.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\MD5\md5.cpp"
 				>
 			</File>
@@ -551,32 +547,6 @@
 				>
 			</File>
 			<File
-				RelativePath="mainwindow.h"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="MOC mainwindow.h"
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT  -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;.\debug\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; &quot;mainwindow.h&quot; -o &quot;debug\moc_mainwindow.cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QTDIR)\bin\moc.exe;mainwindow.h"
-						Outputs="debug\moc_mainwindow.cpp"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="MOC mainwindow.h"
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG  -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;.\release\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; &quot;mainwindow.h&quot; -o &quot;release\moc_mainwindow.cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QTDIR)\bin\moc.exe;mainwindow.h"
-						Outputs="release\moc_mainwindow.cpp"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\MD5\md5.h"
 				>
 			</File>
@@ -790,13 +760,6 @@
 				RelativePath=".\Debug\moc_choosealgorithmpage.cpp"
 				>
 				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
@@ -816,13 +779,6 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\Release\moc_enterkeypage.cpp"
@@ -835,24 +791,10 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\Debug\moc_enterkeypage.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32"
 					ExcludedFromBuild="true"
@@ -873,24 +815,10 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\Debug\moc_entertextpage.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32"
 					ExcludedFromBuild="true"
@@ -903,13 +831,6 @@
 			<File
 				RelativePath=".\Debug\moc_imagealgorithm.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32"
 					ExcludedFromBuild="true"
@@ -930,24 +851,10 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\Debug\moc_intropage.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32"
 					ExcludedFromBuild="true"
@@ -968,37 +875,6 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="release\moc_mainwindow.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="debug\moc_mainwindow.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\Release\moc_opencontainerpage.cpp"
@@ -1011,24 +887,10 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\Debug\moc_opencontainerpage.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32"
 					ExcludedFromBuild="true"
@@ -1080,13 +942,6 @@
 				RelativePath=".\Debug\moc_soundalgorithm.cpp"
 				>
 				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
@@ -1106,24 +961,10 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\Debug\moc_textpage.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32"
 					ExcludedFromBuild="true"
@@ -1139,13 +980,6 @@
 				<FileConfiguration
 					Name="Debug|Win32"
 					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"

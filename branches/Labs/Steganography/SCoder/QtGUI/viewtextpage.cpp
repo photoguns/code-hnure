@@ -14,8 +14,6 @@ ViewTextPage::ViewTextPage( QWidget* _parent /* = NULL */ )
 {
     setTitle(tr("Text"));
     m_Text->setEnabled(false);
-
-    setText("OLOLO");
 }
 
 
@@ -30,16 +28,7 @@ ViewTextPage::~ViewTextPage()
 ////////////////////////////////////////////////////////////////////////////////
 
 
-int ViewTextPage::nextId() const
-{
-    return SCoderWizard::VIEW_TEXT_PAGE;
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-void ViewTextPage::setText( const std::string& _text )
+void ViewTextPage::SetText( const std::string& _text )
 {
     m_Text->clear();
     m_Text->setPlainText( QString::fromStdString(_text) );

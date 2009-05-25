@@ -38,10 +38,6 @@ public:
     virtual ~TextPage();
 
 
-    /** Next page handler */
-    virtual int nextId() const = 0;
-
-
 ////////////////////////////////////////////////////////////////////////////////
 
 protected:

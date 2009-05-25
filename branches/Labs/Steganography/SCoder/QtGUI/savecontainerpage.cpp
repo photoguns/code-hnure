@@ -48,11 +48,11 @@ void SaveContainerPage::SaveFile()
     m_Done->clear();
 
     // Show open file dialog
-    QString fn = QFileDialog::getSaveFileName(this, tr("Save as..."),
+    m_FileName = QFileDialog::getSaveFileName(this, tr("Save as..."),
         QString(), tr("Images (*.bmp);;Sounds (*.wav)"));
 
     // Display file name
-    if (!fn.isEmpty())
+    if (!m_FileName.isEmpty())
     {
         // Get wizard
         SCoderWizard* aWizard = static_cast<SCoderWizard*>( wizard() );
@@ -60,6 +60,15 @@ void SaveContainerPage::SaveFile()
 
         m_Done->setText(tr("Done!"));
     }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+std::string SaveContainerPage::GetFileName() const
+{
+    return m_FileName.toStdString();
 }
 
 
