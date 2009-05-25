@@ -13,6 +13,8 @@
 #include "enterkeypage.h"
 #include "savecontainerpage.h"
 
+#include <cassert>
+
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -44,10 +46,10 @@ SCoderWizard::~SCoderWizard()
 ////////////////////////////////////////////////////////////////////////////////
 
 
-SCoderWizard::ContainerType SCoderWizard::GetContainerType() const
+ContainerType SCoderWizard::GetContainerType() const
 {
     OpenContainerPage* openPage = static_cast<OpenContainerPage*>( page(INTRO_PAGE) );
-    return openPage->IsImageContainer() ? Containers::IMAGE : Containers::SOUND;
+    return openPage->IsImageContainer() ? IMAGE : SOUND;
 }
 
 
@@ -65,9 +67,78 @@ bool SCoderWizard::IsHideMessageMode() const
 
 std::string SCoderWizard::GetOpenFileName() const
 {
-    OpenContainerPage* openPage = static_cast<OpenContainerPage*>( page(INTRO_PAGE) );
+    OpenContainerPage* openPage = static_cast<OpenContainerPage*>( page(OPEN_CONTAINER_PAGE) );
     return openPage->GetFileName();
 }
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+std::string SCoderWizard::GetSaveFileName() const
+{
+    SaveContainerPage* savePage = static_cast<SaveContainerPage*>( page(SAVE_CONTAINER_PAGE) );
+    return savePage->GetFileName();
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+std::string SCoderWizard::GetText() const
+{
+    const EnterTextPage* enterTextPage = static_cast<const EnterTextPage*>( page(ENTER_TEXT_PAGE) );
+    return enterTextPage->GetText();
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+void SCoderWizard::SetText( std::string _text )
+{
+    ViewTextPage* viewTextPage = static_cast<ViewTextPage*>( page(VIEW_TEXT_PAGE) );
+    return viewTextPage->SetText(_text);
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+std::string SCoderWizard::GetKey() const
+{
+    EnterKeyPage* keyPage = static_cast<EnterKeyPage*>( page(ENTER_KEY_PAGE) );
+    return keyPage->GetKey();
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+CoderType SCoderWizard::GetCoderType() const
+{
+    switch ( GetContainerType() )
+    {
+        // Image container
+    case IMAGE:
+        {
+            SoundAlgorithm* soundPage = static_cast<SoundAlgorithm*>( page(SOUND_ALGORITHM) );
+            return soundPage->GetCoderType();
+        }
+
+        // Sound container
+    case SOUND:
+        {
+            ImageAlgorithm* imagePage = static_cast<ImageAlgorithm*>( page(IMAGE_ALGORITHM) );
+            return imagePage->GetCoderType();
+        }
+        //Problem
+    default:
+        assert(0);
+        return INVALID;
+    }
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -78,12 +149,12 @@ void SCoderWizard::Process()
     switch ( GetContainerType() )
     {
         // Image container
-    case Containers::IMAGE:
+    case IMAGE:
         container = GetBMPContainer( GetOpenFileName() );
         break;
 
         // Sound container
-    case Containers::SOUND:
+    case SOUND:
         container = GetWAVContainer( GetOpenFileName() );
         break;
 
@@ -94,8 +165,54 @@ void SCoderWizard::Process()
     }
 
     Coder* coder = NULL;
+    Key* key = NULL;
 
+    switch ( GetCoderType() )
+    {
+    case LSB:
+        coder = GetLSBCoder();
+        break;
+    case PRS:
+        coder = GetPRSCoder();
+        key = GetPRSKey(GetKey(), Key::FILE);
+        break;
+    case PRI:
+        coder = GetPRICoder();
+        key = GetPRIKey(GetKey(), Key::FILE);
+        break;
+    case BLOCK:
+        coder = GetBlockCoder();
+        key = GetBlockKey(GetKey(), Key::FILE);
+        break;
+    case QUANT:
+        coder = GetQuantCoder();
+        key = GetQuantKey(GetKey(), Key::FILE);
+        break;
+    case CROSS:
+        coder = GetCrossCoder();
+        break;
+    case KOCHZHAO:
+        coder = GetKochZhaoCoder();
+        key = GetKochZhaoKey(GetKey(), Key::FILE);
+    case LSBSOUND:
+        coder = GetLSBSoundCoder();
+        break;
+    case ECHO:
+        coder = GetEchoCoder();
+        break;
+    }
+
+    if ( IsHideMessageMode() )
+    {
+        coder->SetMessage(container, GetText(), key);
+        container->Save( GetSaveFileName() );
+    }
+    else
+    {
+        SetText ( coder->GetMessage(container, key) );
+    }
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
+

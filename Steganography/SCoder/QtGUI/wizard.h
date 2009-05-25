@@ -5,6 +5,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <QWizard>
+#include <string>
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -63,6 +64,18 @@ public:
     /** */
     std::string GetOpenFileName() const;
     std::string GetSaveFileName() const;
+
+    /** */
+    std::string GetText() const;
+    void SetText( std::string _text );
+
+
+    /** */
+    std::string GetKey() const;
+
+
+    /** */
+    CoderType GetCoderType() const;
 
 
     /** Hide message into container */

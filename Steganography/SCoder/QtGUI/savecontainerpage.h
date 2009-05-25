@@ -39,6 +39,10 @@ public:
     virtual ~SaveContainerPage();
 
 
+    /** Tells file name */
+    std::string GetFileName() const;
+
+
 ////////////////////////////////////////////////////////////////////////////////
 
 private:
@@ -48,6 +52,8 @@ private:
 
     /** Open container button */
     QPushButton* m_Save;
+
+    QString m_FileName;
 
 
     /** Done */

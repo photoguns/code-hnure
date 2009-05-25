@@ -38,12 +38,8 @@ public:
     virtual ~ViewTextPage();
 
 
-    /** Next page handler */
-    virtual int nextId() const;
-
-
     /** Set text */
-    void setText( const std::string& _text );
+    void SetText( const std::string& _text );
 
 
 ////////////////////////////////////////////////////////////////////////////////

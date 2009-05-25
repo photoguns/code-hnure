@@ -43,7 +43,7 @@ public:
 
 
     /** Get text from text edit */
-    std::string getKey() const;
+    std::string GetKey() const;
 
 
 ////////////////////////////////////////////////////////////////////////////////

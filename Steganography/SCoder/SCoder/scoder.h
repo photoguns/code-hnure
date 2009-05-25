@@ -9,18 +9,22 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-enum Coders
+enum CoderType
 {
     LSB,
     PRS,
     PRI,
-    Block,
-    Quant,
-    Cross,
-    Echo
+    BLOCK,
+    QUANT,
+    CROSS,
+    KOCHZHAO,
+    LSBSOUND,
+    ECHO,
+
+    INVALID
 };
 
-enum Containers
+enum ContainerType
 {
     IMAGE,
     SOUND

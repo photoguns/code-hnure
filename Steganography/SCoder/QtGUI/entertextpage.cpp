@@ -37,11 +37,11 @@ int EnterTextPage::nextId() const
     switch ( aWizard->GetContainerType() )
     {
         // Hide message in image
-    case SCoderWizard::IMAGE:
+    case IMAGE:
         return SCoderWizard::IMAGE_ALGORITHM;
 
         // Hide message in sound
-    case SCoderWizard::SOUND:
+    case SOUND:
         SCoderWizard::SOUND_ALGORITHM;
 
         // Fail..
@@ -55,7 +55,7 @@ int EnterTextPage::nextId() const
 ////////////////////////////////////////////////////////////////////////////////
 
 
-std::string EnterTextPage::getText() const
+std::string EnterTextPage::GetText() const
 {
     return m_Text->toPlainText().toStdString();
 }

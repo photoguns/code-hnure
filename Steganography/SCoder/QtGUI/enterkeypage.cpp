@@ -45,7 +45,7 @@ int EnterKeyPage::nextId() const
 ////////////////////////////////////////////////////////////////////////////////
 
 
-std::string EnterKeyPage::getKey() const
+std::string EnterKeyPage::GetKey() const
 {
     return m_Key->text().toStdString();
 }
