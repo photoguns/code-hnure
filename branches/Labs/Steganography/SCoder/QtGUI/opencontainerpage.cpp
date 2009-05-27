@@ -1,13 +1,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "opencontainerpage.h"
-#include "wizard.h"
-#include <cassert>
 
+////////////////////////////////////////////////////////////////////////////////
+
+#include <cassert>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QFileDialog>
-#include <QLabel>
+#include <QLineEdit>
+
+#include "scoderwizard.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -15,20 +18,30 @@
 OpenContainerPage::OpenContainerPage( QWidget* _parent /* = NULL */ )
 : QWizardPage(_parent)
 {
+    // Set title
     setTitle(tr("Open container"));
+    setSubTitle(tr("You can open a BMP image or a WAV sound file.\n" \
+                   "Note: only 24-bit images and 16-bit audio files are supported!"));
 
     // Create open file button
     m_Open = new QPushButton(tr("&Browse..."));
     m_Open->setMaximumSize(100,30);
 
-    m_FileName = new QLabel;
+    // Create line edit for displaying filename
+    m_FileName = new QLineEdit;
+    m_FileName->setReadOnly(true);
 
+    // Setup layout
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(m_Open);
     layout->addWidget(m_FileName);
 
     setLayout(layout);
 
+    registerField("OpenFileName*", m_FileName);
+    registerField("ContainerType", this);
+
+    // Connect signal to slot
     connect( m_Open, SIGNAL( clicked() ), this, SLOT( OpenFile() ) );
 }
 
@@ -46,26 +59,18 @@ OpenContainerPage::~OpenContainerPage()
 
 int OpenContainerPage::nextId() const
 {
-    // Get wizard
-    SCoderWizard* aWizard = static_cast<SCoderWizard*>( wizard() );
-
-    // Hide message
-    if ( aWizard->IsHideMessageMode() )
-        return  SCoderWizard::ENTER_TEXT_PAGE;
+    // If hide mode -- go to enter text page
+    if ( field("IsHideMessageMode").toBool() )
+        return SCoderWizard::ENTER_TEXT_PAGE;
     else
     {
-        // Get message
-        switch ( aWizard->GetContainerType() )
+        // Chose algorithm
+        switch ( static_cast<ContainerType>( field("ContainerType").toInt() ) )
         {
-            // Get message from image
         case IMAGE:
             return SCoderWizard::IMAGE_ALGORITHM;
-
-            // Get message from sound
         case SOUND:
-            SCoderWizard::SOUND_ALGORITHM;
-        
-            // Fail..
+            return SCoderWizard::SOUND_ALGORITHM;
         default:
             assert(0);
             return 0;
@@ -77,33 +82,26 @@ int OpenContainerPage::nextId() const
 ////////////////////////////////////////////////////////////////////////////////
 
 
-bool OpenContainerPage::IsImageContainer() const
-{
-    return true;
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
 void OpenContainerPage::OpenFile()
 {
     // Show open file dialog
-    QString fn = QFileDialog::getOpenFileName(this, tr("Open File..."),
-        QString(), tr("Images (*.bmp);;Sounds (*.wav)"));
-
+    QString fn = QFileDialog::getOpenFileName(this,
+                                              tr("Open File..."),
+                                              QString(),
+                                              tr("Images, Sounds (*.bmp *.wav)") );
+    
     // Display file name
     if (!fn.isEmpty())
+    {
+        // Set container type
+        if ( fn.endsWith(".bmp", Qt::CaseInsensitive) )
+            setField("ContainerType", static_cast<int>(IMAGE) );
+        else if ( fn.endsWith(".wav", Qt::CaseInsensitive) )
+            setField("ContainerType", static_cast<int>(SOUND) );
+
+        // Set file name
         m_FileName->setText(fn);
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-std::string OpenContainerPage::GetFileName() const
-{
-    return m_FileName->text().toStdString();
+    }
 }
 
 

@@ -4,6 +4,8 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
+#include <cassert>
+
 #include "bmpcontainer.h"
 #include "wavcontainer.h"
 
@@ -31,144 +33,73 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-Container* GetBMPContainer( const std::string& _fileName )
+Container* GetContainer( ContainerType _type, const std::string& _fileName )
 {
-    return new BMPContainer(_fileName);
+    switch (_type)
+    {
+    case IMAGE:
+        return new BMPContainer(_fileName);
+    case SOUND:
+        return new WAVContainer(_fileName);
+    default:
+        assert(0);
+        return NULL;
+    }
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-Container* GetWAVContainer( const std::string& _fileName )
+Coder* GetCoder( CoderType _type )
 {
-    return new WAVContainer(_fileName);
+    switch (_type)
+    {
+    case LSB:
+        return new LSBCoder();
+    case PRS:
+        return new PRSCoder();
+    case PRI:
+        return new PRICoder();
+    case BLOCK:
+        return new BlockCoder();
+    case QUANT:
+        return new QuantCoder();
+    case CROSS:
+        return new CrossCoder();
+    case KOCHZHAO:
+        return new KochZhaoCoder();
+    case LSBSOUND:
+        return new LSBSoundCoder();
+    case ECHO:
+        return new EchoCoder();
+    default:
+        assert(0);
+        return NULL;
+    }
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-Coder* GetLSBCoder()
+Key* GetKey( CoderType _coderType, const std::string& _string, Key::KeyType _type )
 {
-    return new LSBCoder();
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-Coder* GetPRICoder()
-{
-    return new PRICoder();
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-Coder* GetPRSCoder()
-{
-    return new PRSCoder();
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-Coder* GetBlockCoder()
-{
-    return new BlockCoder();
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-Coder* GetQuantCoder()
-{
-    return new QuantCoder();
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-Coder* GetCrossCoder()
-{
-    return new CrossCoder();
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-Coder* GetKochZhaoCoder()
-{
-    return new KochZhaoCoder();
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-Coder* GetLSBSoundCoder()
-{
-    return new LSBSoundCoder();
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-Coder* GetEchoCoder()
-{
-    return new EchoCoder();
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-Key* GetPRIKey( const std::string& _string, Key::KeyType _type )
-{
-    return new PRIKey(_string, _type);
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-Key* GetPRSKey( const std::string& _string, Key::KeyType _type )
-{
-    return new PRSKey(_string, _type);
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-Key* GetBlockKey( const std::string& _string, Key::KeyType _type )
-{
-    return new BlockKey(_string, _type);
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-Key* GetQuantKey( const std::string& _string, Key::KeyType _type )
-{
-    return new QuantKey(_string, _type);
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-Key* GetKochZhaoKey( const std::string& _string, Key::KeyType _type )
-{
-    return new KochZhaoKey(_string, _type);
+    switch (_coderType)
+    {
+    case PRS:
+        return new PRSKey(_string, _type);
+    case PRI:
+        return new PRIKey(_string, _type);
+    case BLOCK:
+        return new BlockKey(_string, _type);
+    case QUANT:
+        return new QuantKey(_string, _type);
+    case KOCHZHAO:
+        return new KochZhaoKey(_string, _type);
+    default:
+        return NULL;
+    }
 }
 
 

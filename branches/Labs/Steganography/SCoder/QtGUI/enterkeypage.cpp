@@ -1,10 +1,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "enterkeypage.h"
-#include "wizard.h"
+
+////////////////////////////////////////////////////////////////////////////////
 
 #include <QLineEdit>
 #include <QVBoxLayout>
+
+#include "scoderwizard.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -12,16 +15,20 @@
 EnterKeyPage::EnterKeyPage( QWidget* _parent /* = NULL */ )
 : QWizardPage(_parent)
 {
+    // Set title
     setTitle(tr("Enter key"));
+    setSubTitle(tr("\nThe algorithm you have chosen needs key. Please, enter it"));
 
     // Create line edit
     m_Key = new QLineEdit;
 
-    // Create layout
+    // Setup layout
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(m_Key);
-
     setLayout(layout);
+
+    // Create key field
+    registerField("Key*", m_Key);
 }
 
 
@@ -38,16 +45,9 @@ EnterKeyPage::~EnterKeyPage()
 
 int EnterKeyPage::nextId() const
 {
-    return SCoderWizard::SAVE_CONTAINER_PAGE;
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-std::string EnterKeyPage::GetKey() const
-{
-    return m_Key->text().toStdString();
+    return field("IsHideMessageMode").toBool() ?
+        SCoderWizard::SAVE_CONTAINER_PAGE :
+        SCoderWizard::VIEW_TEXT_PAGE;
 }
 
 

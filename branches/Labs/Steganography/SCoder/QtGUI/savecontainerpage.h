@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 class QPushButton;
-class QLabel;
+class QLineEdit;
 
 /** C++ class representing GUI Wizard page
 *
@@ -39,8 +39,12 @@ public:
     virtual ~SaveContainerPage();
 
 
-    /** Tells file name */
-    std::string GetFileName() const;
+    /** Hide message and save container to file */
+    virtual bool validatePage();
+
+
+    /** Next page */
+    virtual int nextId() const;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -53,11 +57,9 @@ private:
     /** Open container button */
     QPushButton* m_Save;
 
-    QString m_FileName;
 
-
-    /** Done */
-    QLabel* m_Done;
+    /** Path for saving file */
+    QLineEdit* m_Path;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -67,7 +69,7 @@ private slots:
 ////////////////////////////////////////////////////////////////////////////////
 
 
-    /** Open File */
+    /** Save File slot */
     void SaveFile();
 
 ////////////////////////////////////////////////////////////////////////////////

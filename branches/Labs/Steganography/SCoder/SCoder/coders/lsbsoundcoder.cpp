@@ -125,7 +125,10 @@ unsigned long LSBSoundCoder::GetMessageLength()
 
         // If no space left to read bits - break
         if ( !GetBit(&bit) )
+        {
+            assert(0&&"Can not get bit in GetMessageLength()");
             break;
+        }
 
         // Save bit
         messageLength[bitsRead] = bit;
@@ -149,7 +152,10 @@ void LSBSoundCoder::SetMessageLength( size_t _length )
     {
         // If no space left to write bits - break
         if ( !SetBit( length[bitsWritten] ) )
+        {
+            assert(0&&"Can not set bit in SetMessageLength()");
             break;
+        }
     }
 }
 
@@ -176,7 +182,10 @@ std::string LSBSoundCoder::GetMessageText( size_t _length )
 
         // If no space left to read bits - break
         if ( !GetBit(&bit) )
+        {
+            assert(0&&"Can not get bit in GetMessageText()");
             break;
+        }
 
         // Save bit
         message.back()[bitsRead % bitsInChar] = bit;
@@ -216,7 +225,10 @@ void LSBSoundCoder::SetMessageText( const std::string& _message )
         // If no space left to write bits - break
         if ( !SetBit( message[bitsWritten / bitsInChar]
         [bitsWritten % bitsInChar] ) )
+        {
+            assert(0&&"Can not set bit in SetMessageText()");
             break;
+        }
     }
 }
 
@@ -259,8 +271,11 @@ bool LSBSoundCoder::SetBit( bool _bit )
         // Get sample
         short sample = m_Container->GetSample(m_CurrSamplePosition);
 
+        // Reset LSB
+        sample &= 254;
+
         // Set LSB
-        sample &= 254 | static_cast<short>(_bit);
+        sample |= static_cast<short>(_bit);
 
         // Save sample
         m_Container->SetSample(m_CurrSamplePosition, sample);

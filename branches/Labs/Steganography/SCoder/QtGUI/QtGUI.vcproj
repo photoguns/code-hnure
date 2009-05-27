@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="QtGUI"
-	ProjectGUID="{BB254231-8B16-3A7E-AC31-0E5B38231A90}"
+	ProjectGUID="{4C143C61-B754-3FA9-A155-A912835F340B}"
 	Keyword="Qt4VSv1.0"
 	TargetFrameworkVersion="0"
 	>
@@ -219,7 +219,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\choosealgorithmpage.cpp"
+				RelativePath="choosealgorithmpage.cpp"
 				>
 			</File>
 			<File
@@ -243,19 +243,23 @@
 				>
 			</File>
 			<File
-				RelativePath=".\enterkeypage.cpp"
+				RelativePath="enterkeypage.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\entertextpage.cpp"
+				RelativePath="entertextpage.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\imagealgorithm.cpp"
+				RelativePath=".\hidepage.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\intropage.cpp"
+				RelativePath="imagealgorithm.cpp"
+				>
+			</File>
+			<File
+				RelativePath="intropage.cpp"
 				>
 			</File>
 			<File
@@ -291,7 +295,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\opencontainerpage.cpp"
+				RelativePath="opencontainerpage.cpp"
 				>
 			</File>
 			<File
@@ -319,7 +323,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\savecontainerpage.cpp"
+				RelativePath="savecontainerpage.cpp"
 				>
 			</File>
 			<File
@@ -327,23 +331,23 @@
 				>
 			</File>
 			<File
-				RelativePath=".\soundalgorithm.cpp"
+				RelativePath="scoderwizard.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\textpage.cpp"
+				RelativePath="soundalgorithm.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\viewtextpage.cpp"
+				RelativePath="textpage.cpp"
+				>
+			</File>
+			<File
+				RelativePath="viewtextpage.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\SCoder\containers\wavcontainer.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\wizard.cpp"
 				>
 			</File>
 		</Filter>
@@ -365,17 +369,17 @@
 				>
 			</File>
 			<File
-				RelativePath=".\choosealgorithmpage.h"
+				RelativePath="choosealgorithmpage.h"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot; -D_WINDOWS -DQT_CORE_LIB -DQT_DLL -DQT_GUI_LIB -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; -I&quot;.\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\debug\.&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -383,10 +387,10 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG  -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;.\release\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; &quot;.\choosealgorithmpage.h&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
 					/>
 				</FileConfiguration>
 			</File>
@@ -423,7 +427,59 @@
 				>
 			</File>
 			<File
-				RelativePath=".\enterkeypage.h"
+				RelativePath="enterkeypage.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="entertextpage.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\hidepage.h"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -442,24 +498,24 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG  -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;.\release\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; &quot;.\enterkeypage.h&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG  -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;.\release\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; &quot;.\hidepage.h&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\entertextpage.h"
+				RelativePath="imagealgorithm.h"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot; -D_WINDOWS -DQT_CORE_LIB -DQT_DLL -DQT_GUI_LIB -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; -I&quot;.\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\debug\.&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -467,25 +523,25 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG  -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;.\release\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; &quot;.\entertextpage.h&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\imagealgorithm.h"
+				RelativePath="intropage.h"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot; -D_WINDOWS -DQT_CORE_LIB -DQT_DLL -DQT_GUI_LIB -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; -I&quot;.\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\debug\.&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -493,36 +549,10 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG  -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;.\release\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; &quot;.\imagealgorithm.h&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\intropage.h"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot; -D_WINDOWS -DQT_CORE_LIB -DQT_DLL -DQT_GUI_LIB -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; -I&quot;.\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\debug\.&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG  -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;.\release\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; &quot;.\intropage.h&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
 					/>
 				</FileConfiguration>
 			</File>
@@ -555,7 +585,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\opencontainerpage.h"
+				RelativePath="opencontainerpage.h"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -574,7 +604,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG  -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;.\release\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; &quot;.\opencontainerpage.h&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG  -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;.\release\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; &quot;opencontainerpage.h&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -605,7 +635,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\savecontainerpage.h"
+				RelativePath="savecontainerpage.h"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -624,7 +654,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG  -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;.\release\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; &quot;.\savecontainerpage.h&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG  -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;.\release\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; &quot;savecontainerpage.h&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -635,6 +665,32 @@
 				>
 			</File>
 			<File
+				RelativePath="scoderwizard.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\libsndfile\sndfile.h"
 				>
 			</File>
@@ -643,17 +699,17 @@
 				>
 			</File>
 			<File
-				RelativePath=".\soundalgorithm.h"
+				RelativePath="soundalgorithm.h"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot; -D_WINDOWS -DQT_CORE_LIB -DQT_DLL -DQT_GUI_LIB -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; -I&quot;.\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\debug\.&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -661,25 +717,25 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG  -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;.\release\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; &quot;.\soundalgorithm.h&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\textpage.h"
+				RelativePath="textpage.h"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot; -D_WINDOWS -DQT_CORE_LIB -DQT_DLL -DQT_GUI_LIB -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; -I&quot;.\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\debug\.&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -687,25 +743,25 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG  -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;.\release\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; &quot;.\textpage.h&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\viewtextpage.h"
+				RelativePath="viewtextpage.h"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot; -D_WINDOWS -DQT_CORE_LIB -DQT_DLL -DQT_GUI_LIB -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; -I&quot;.\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\debug\.&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -713,42 +769,16 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG  -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;.\release\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; &quot;.\viewtextpage.h&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
 					/>
 				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\SCoder\containers\wavcontainer.h"
 				>
-			</File>
-			<File
-				RelativePath=".\wizard.h"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot; -D_WINDOWS -DQT_CORE_LIB -DQT_DLL -DQT_GUI_LIB -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; -I&quot;.\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\debug\.&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -DNDEBUG  -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\..\SCoder\.&quot; -I&quot;.\..\SCoder\coders\.&quot; -I&quot;.\..\SCoder\containers\.&quot; -I&quot;.\..\SCoder\keys\.&quot; -I&quot;.\..\easybmp\.&quot; -I&quot;.\..\libsndfile\.&quot; -I&quot;.\..\md5\.&quot; -I&quot;$(QTDIR)\include\ActiveQt\.&quot; -I&quot;.\release\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\mkspecs\win32-msvc2008\.&quot; &quot;.\wizard.h&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
-					/>
-				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
@@ -757,8 +787,15 @@
 			UniqueIdentifier="{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}"
 			>
 			<File
-				RelativePath=".\Debug\moc_choosealgorithmpage.cpp"
+				RelativePath=".\Debug\moc_hidepage.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32"
 					ExcludedFromBuild="true"
@@ -769,7 +806,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\Release\moc_choosealgorithmpage.cpp"
+				RelativePath=".\Release\moc_hidepage.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -779,97 +816,8 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Release\moc_enterkeypage.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Debug\moc_enterkeypage.cpp"
-				>
 				<FileConfiguration
 					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Release\moc_entertextpage.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Debug\moc_entertextpage.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Debug\moc_imagealgorithm.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Release\moc_imagealgorithm.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Debug\moc_intropage.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Release\moc_intropage.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -887,13 +835,8 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Debug\moc_opencontainerpage.cpp"
-				>
 				<FileConfiguration
 					Name="Release|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -901,7 +844,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\Debug\moc_savecontainerpage.cpp"
+				RelativePath=".\Debug\moc_opencontainerpage.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -939,55 +882,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\Debug\moc_soundalgorithm.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Release\moc_soundalgorithm.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Debug\moc_textpage.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Release\moc_textpage.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Debug\moc_viewtextpage.cpp"
+				RelativePath=".\Debug\moc_savecontainerpage.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -1002,100 +897,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Release\moc_viewtextpage.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Release\moc_wizard.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Debug\moc_wizard.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="ui_mainwindow.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Form Files"
-			Filter="ui"
-			UniqueIdentifier="{99349809-55BA-4b9d-BF79-8FDBB0286EB3}"
-			ParseFiles="false"
-			>
-			<File
-				RelativePath="mainwindow.ui"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="UIC mainwindow.ui"
-						CommandLine="$(QTDIR)\bin\uic.exe mainwindow.ui -o ui_mainwindow.h&#x0D;&#x0A;"
-						AdditionalDependencies="$(QTDIR)\bin\uic.exe;mainwindow.ui"
-						Outputs="ui_mainwindow.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="UIC mainwindow.ui"
-						CommandLine="$(QTDIR)\bin\uic.exe mainwindow.ui -o ui_mainwindow.h&#x0D;&#x0A;"
-						AdditionalDependencies="$(QTDIR)\bin\uic.exe;mainwindow.ui"
-						Outputs="ui_mainwindow.h"
 					/>
 				</FileConfiguration>
 			</File>

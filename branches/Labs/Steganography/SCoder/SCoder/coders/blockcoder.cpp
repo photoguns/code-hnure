@@ -34,8 +34,6 @@ void BlockCoder::SetMessage( Container* _container,
         // Must be BMP container
         if ( _container->IsBMPContainer() )
         {
-            BMPContainer* container = static_cast<BMPContainer*>(_container);
-
             // Reset data
             m_CurrBlock = 0;
 
@@ -66,8 +64,6 @@ std::string BlockCoder::GetMessage( const Container* _container,
         // Must be BMP container
         if ( _container->IsBMPContainer() )
         {
-            const BMPContainer* container = static_cast<const BMPContainer*>(_container);
-
             // Reset data
             m_CurrBlock = 0;
 

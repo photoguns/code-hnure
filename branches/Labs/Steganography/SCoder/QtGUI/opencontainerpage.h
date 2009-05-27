@@ -6,10 +6,12 @@
 #include <QWizardPage>
 #include <string>
 
+#include "scoder.h"
+
 ////////////////////////////////////////////////////////////////////////////////
 
 class QPushButton;
-class QLabel;
+class QLineEdit;
 
 /** C++ class representing GUI Wizard page
 *
@@ -23,7 +25,7 @@ class OpenContainerPage : public QWizardPage
 {
 ////////////////////////////////////////////////////////////////////////////////
 
-Q_OBJECT
+    Q_OBJECT
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -41,15 +43,7 @@ public:
 
 
     /** Next page handler */
-    int nextId() const;
-
-
-    /** Tells type of container */
-    bool IsImageContainer() const;
-
-
-    /** Tells file name */
-    std::string GetFileName() const;
+    virtual int nextId() const;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -64,7 +58,7 @@ private:
 
 
     /** File name */
-    QLabel* m_FileName;
+    QLineEdit* m_FileName;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -74,7 +68,7 @@ private slots:
 ////////////////////////////////////////////////////////////////////////////////
 
 
-    /** Open File */
+    /** Opens file dialog when push button clicked */
     void OpenFile();
 
 
