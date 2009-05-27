@@ -50,14 +50,17 @@ public:
     /** Tells if this key is Block key */
     virtual bool IsBlockKey() const { return false; }
 
-    /** Tells if this key is Block key */
+    /** Tells if this key is Quant key */
     virtual bool IsQuantKey() const { return false; }
 
-    /** Tells if this key is Block key */
+    /** Tells if this key is Cross key */
     virtual bool IsCrossKey() const { return false; }
 
-    /** Tells if this key is Block key */
+    /** Tells if this key is KochZhao key */
     virtual bool IsKochZhaoKey() const { return false; }
+    
+    /** Tells if this key is Echo key */
+    virtual bool IsEchoKey() const { return false; }
 
 
 ////////////////////////////////////////////////////////////////////////////////

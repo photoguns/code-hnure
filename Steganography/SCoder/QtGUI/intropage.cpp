@@ -6,6 +6,7 @@
 
 #include <QRadioButton>
 #include <QVBoxLayout>
+#include <QVariant>
 
 #include "scoderwizard.h"
 

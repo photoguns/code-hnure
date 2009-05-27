@@ -14,6 +14,7 @@
 #include "savecontainerpage.h"
 #include "hidepage.h"
 
+#include <QVariant>
 #include <cassert>
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -3,19 +3,19 @@
 int main()
 {
     //Create a container
-    Container* container = GetBMPContainer("1.bmp");
+    Container* container = GetContainer(SOUND, "1.wav");
 
     //Create coder
-    Coder* coder = GetQuantCoder();
+    Coder* coder = GetCoder(ECHO);
 
     //Create key
-    Key* key = GetQuantKey("On Air:  Acues - Existrance 14 on AH.FM 23-05-2009 [REPLAY]", Key::STRING);
+    Key* key = GetKey(ECHO, "On", Key::STRING);
 
     //Hide message into container
-    coder->SetMessage(container, "Ashley Wallbridge Feat Meighan Nealon - My Blood (TyDi Remix)", key);
+    coder->SetMessage(container, "dsddddddddddddddddddddddddddddddddddd", key);
 
-    container->Save("2.bmp");
-    container->Open("2.bmp");
+    container->Save("2.wav");
+    container->Open("2.wav");
 
     //Get message from container
     std::string message = coder->GetMessage(container, key);

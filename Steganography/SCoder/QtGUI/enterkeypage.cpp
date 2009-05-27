@@ -6,6 +6,7 @@
 
 #include <QLineEdit>
 #include <QVBoxLayout>
+#include <QVariant>
 
 #include "scoderwizard.h"
 

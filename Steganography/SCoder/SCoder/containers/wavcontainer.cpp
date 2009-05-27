@@ -51,7 +51,7 @@ bool WAVContainer::Open( const std::string& _path )
         m_Frames = new short[m_FramesCount];
 
         // Read all frames
-        if ( m_FramesCount == file.read(m_Frames, m_FramesCount) )
+        if ( m_FramesCount == file.read(reinterpret_cast<short*>(m_Frames), m_FramesCount) )
 
             // Everything is OK
             return true;
@@ -72,7 +72,7 @@ bool WAVContainer::Save( const std::string& _path )
     SndfileHandle file(_path, SFM_WRITE, m_Format, m_Channels, m_SampleRate);
 
     // Write
-    if ( m_FramesCount == file.write(m_Frames, m_FramesCount) )
+    if ( m_FramesCount == file.write(reinterpret_cast<short*>(m_Frames), m_FramesCount) )
 
         // Everything is OK
         return true;
