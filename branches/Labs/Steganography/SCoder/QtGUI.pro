@@ -1,7 +1,7 @@
 # -------------------------------------------------
 # Project created by QtCreator 2009-05-24T22:08:58
 # -------------------------------------------------
-TARGET = SCoder
+TARGET = LaunchSCoder
 TEMPLATE = app
 INCLUDEPATH +=        \
     QtGUI/headers     \
