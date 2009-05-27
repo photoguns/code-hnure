@@ -8,6 +8,8 @@
 #include <QVBoxLayout>
 #include <QFileDialog>
 #include <QLineEdit>
+#include <QMessageBox>
+#include <QVariant>
 #include <cassert>
 
 #include "scoderwizard.h"

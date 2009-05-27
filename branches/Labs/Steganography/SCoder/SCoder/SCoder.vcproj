@@ -207,6 +207,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\keys\echokey.h"
+					>
+				</File>
+				<File
 					RelativePath=".\keys\key.h"
 					>
 				</File>
@@ -232,6 +236,10 @@
 				>
 				<File
 					RelativePath=".\keys\blockkey.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\keys\echokey.cpp"
 					>
 				</File>
 				<File

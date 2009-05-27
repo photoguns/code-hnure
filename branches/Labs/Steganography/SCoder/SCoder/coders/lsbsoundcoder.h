@@ -137,6 +137,18 @@ protected:
     WAVContainer* GetContainer();
 
 
+    /** Next sample */
+    bool JumpToNextSample();
+
+
+    /** Get sample */
+    short GetCurrSample() const;
+
+
+    /** Set sample */
+    void SetCurrSample( short _sample );
+
+
 ////////////////////////////////////////////////////////////////////////////////
 
 private:
@@ -147,6 +159,8 @@ private:
     /** Current container */
     WAVContainer* m_Container;
 
+
+    /** Current sample position */
     size_t m_CurrSamplePosition;
 
 

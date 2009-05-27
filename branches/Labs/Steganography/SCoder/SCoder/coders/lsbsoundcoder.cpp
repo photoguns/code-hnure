@@ -239,7 +239,7 @@ void LSBSoundCoder::SetMessageText( const std::string& _message )
 bool LSBSoundCoder::GetBit( bool* _bit )
 {
     // Check borders
-    if ( m_CurrSamplePosition < m_Container->Size() )
+    if ( JumpToNextSample() )
     {
         // Get sample
         short sample = m_Container->GetSample(m_CurrSamplePosition);
@@ -250,12 +250,11 @@ bool LSBSoundCoder::GetBit( bool* _bit )
         else
             *_bit = false;
 
-        // Next sample
-        ++m_CurrSamplePosition;
+        // Bit has been read
         return true;
     }
     else
-        // Bit was not read
+        // Bit has not been read
         return false;
 }
 
@@ -266,7 +265,7 @@ bool LSBSoundCoder::GetBit( bool* _bit )
 bool LSBSoundCoder::SetBit( bool _bit )
 {
     // Check borders
-    if ( m_CurrSamplePosition < m_Container->Size() )
+    if ( JumpToNextSample() )
     {
         // Get sample
         short sample = m_Container->GetSample(m_CurrSamplePosition);
@@ -278,14 +277,42 @@ bool LSBSoundCoder::SetBit( bool _bit )
         sample |= static_cast<short>(_bit);
 
         // Save sample
-        m_Container->SetSample(m_CurrSamplePosition, sample);
+        SetCurrSample(sample);
 
-        // Next sample
-        ++m_CurrSamplePosition;
+        // Bit has been written
         return true;
     }
     else
+        // Bit has not been written
         return false;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+bool LSBSoundCoder::JumpToNextSample()
+{
+    ++m_CurrSamplePosition;
+    return m_CurrSamplePosition < m_Container->Size();
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+short LSBSoundCoder::GetCurrSample() const
+{
+    return m_Container->GetSample(m_CurrSamplePosition);
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+void LSBSoundCoder::SetCurrSample( short _sample )
+{
+    m_Container->SetSample(m_CurrSamplePosition, _sample);
 }
 
 

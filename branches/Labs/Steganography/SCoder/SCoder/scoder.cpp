@@ -29,6 +29,7 @@
 #include "blockkey.h"
 #include "quantkey.h"
 #include "kochzhaokey.h"
+#include "echokey.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -97,6 +98,8 @@ Key* GetKey( CoderType _coderType, const std::string& _string, Key::KeyType _typ
         return new QuantKey(_string, _type);
     case KOCHZHAO:
         return new KochZhaoKey(_string, _type);
+    case ECHO:
+        return new EchoKey(_string, _type);
     default:
         return NULL;
     }

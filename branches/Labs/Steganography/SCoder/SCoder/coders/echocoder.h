@@ -33,11 +33,26 @@ public:
     virtual ~EchoCoder();
 
 
+    /** Puts the message into container */
+    virtual void SetMessage ( Container* _container,
+                              const std::string& message,
+                              const Key* _key );
+
+
+    /** Gets the message from container */
+    virtual std::string GetMessage ( const Container* _container,
+                                     const Key* _key );
+
+
 ////////////////////////////////////////////////////////////////////////////////
 
 private:
 
 ////////////////////////////////////////////////////////////////////////////////
+
+
+    /** Special handling */
+    virtual void SetupContainer( const WAVContainer* _container );
 
 
     /** Reads bit from container */
@@ -46,6 +61,18 @@ private:
 
     /** Writes bit in container */
     virtual bool SetBit( bool _bit );
+
+
+    /** Writes echo of sample in container */
+    void WriteEcho( short _sample, bool _greater );
+
+
+    /** First echo offset [samples] */
+    int m_EchoFirstOffset;
+
+
+    /** Second echo offset [samples] */
+    int m_EchoSecondOffset;
 
 
 ////////////////////////////////////////////////////////////////////////////////

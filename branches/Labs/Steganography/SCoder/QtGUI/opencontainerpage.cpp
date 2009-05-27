@@ -9,6 +9,7 @@
 #include <QVBoxLayout>
 #include <QFileDialog>
 #include <QLineEdit>
+#include <QVariant>
 
 #include "scoderwizard.h"
 
