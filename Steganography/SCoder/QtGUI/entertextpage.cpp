@@ -1,11 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "entertextpage.h"
-#include "wizard.h"
+
+////////////////////////////////////////////////////////////////////////////////
 
 #include <cassert>
-#include <QString>
-#include <QTextEdit>
+
+#include "scoderwizard.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -13,7 +14,9 @@
 EnterTextPage::EnterTextPage( QWidget* _parent /* = NULL */ )
 : TextPage(_parent)
 {
+    // Set title
     setTitle(tr("Enter Text"));
+    setSubTitle(tr("\nYou can type or paste the text which will be injected into container"));
 }
 
 
@@ -30,11 +33,8 @@ EnterTextPage::~EnterTextPage()
 
 int EnterTextPage::nextId() const
 {
-    // Get wizard
-    SCoderWizard* aWizard = static_cast<SCoderWizard*>( wizard() );
-
     // Hide message
-    switch ( aWizard->GetContainerType() )
+    switch ( static_cast<ContainerType>( field("ContainerType").toInt() ) )
     {
         // Hide message in image
     case IMAGE:
@@ -42,22 +42,13 @@ int EnterTextPage::nextId() const
 
         // Hide message in sound
     case SOUND:
-        SCoderWizard::SOUND_ALGORITHM;
+        return SCoderWizard::SOUND_ALGORITHM;
 
         // Fail..
     default:
         assert(0);
         return 0;
     }
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-
-std::string EnterTextPage::GetText() const
-{
-    return m_Text->toPlainText().toStdString();
 }
 
 

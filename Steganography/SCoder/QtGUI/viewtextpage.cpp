@@ -1,10 +1,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "viewtextpage.h"
-#include "wizard.h"
+
+////////////////////////////////////////////////////////////////////////////////
 
 #include <QString>
 #include <QTextEdit>
+
+#include "scoderwizard.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -12,8 +15,28 @@
 ViewTextPage::ViewTextPage( QWidget* _parent /* = NULL */ )
 : TextPage(_parent)
 {
+    // Set title
     setTitle(tr("Text"));
-    m_Text->setEnabled(false);
+    setSubTitle(tr("\nVoila! It works, isn't it?"));
+
+    // Can not edit text in get text mode
+    m_Text->setReadOnly(true);
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+void ViewTextPage::initializePage()
+{
+    // Get wizard
+    SCoderWizard* aWizard = static_cast<SCoderWizard*>( wizard() );
+
+    // Get text from container
+    aWizard->Process();
+
+    // Display it
+    m_Text->document()->setPlainText( field("Text").toString() );
 }
 
 
@@ -28,10 +51,9 @@ ViewTextPage::~ViewTextPage()
 ////////////////////////////////////////////////////////////////////////////////
 
 
-void ViewTextPage::SetText( const std::string& _text )
+int ViewTextPage::nextId() const
 {
-    m_Text->clear();
-    m_Text->setPlainText( QString::fromStdString(_text) );
+    return -1;
 }
 
 

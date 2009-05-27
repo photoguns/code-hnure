@@ -1,13 +1,16 @@
-#ifndef _ENTERKEYPAGE_H_
-#define _ENTERKEYPAGE_H_
+#ifndef _HIDEPAGE_H_
+#define _HIDEPAGE_H_
 
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <QWizardPage>
 
+#include "scoder.h"
+
 ////////////////////////////////////////////////////////////////////////////////
 
-class QLineEdit;
+class QPushButton;
+class QLabel;
 
 /** C++ class representing GUI Wizard page
 *
@@ -17,8 +20,12 @@ class QLineEdit;
 *  @updated May 24th, 2009
 *
 */
-class EnterKeyPage : public QWizardPage
+class HidePage : public QWizardPage
 {
+////////////////////////////////////////////////////////////////////////////////
+
+    Q_OBJECT
+
 ////////////////////////////////////////////////////////////////////////////////
 
 public:
@@ -27,15 +34,19 @@ public:
 
 
     /** Constructor */
-    EnterKeyPage( QWidget* _parent = NULL );
+    HidePage( QWidget* _parent = NULL );
 
 
     /** Destructor */
-    virtual ~EnterKeyPage();
+    virtual ~HidePage();
 
 
     /** Next page handler */
     virtual int nextId() const;
+
+
+    /** Clear 'Done' status */
+    virtual void cleanupPage();
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -45,8 +56,23 @@ private:
 ////////////////////////////////////////////////////////////////////////////////
 
 
-    /** Line edit */
-    QLineEdit* m_Key;
+    /** Open container button */
+    QPushButton* m_Go;
+
+
+    /** File name */
+    QLabel* m_Done;
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+private slots:
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+    /** Hides message and saves container */
+    void Hide();
 
 
 ////////////////////////////////////////////////////////////////////////////////

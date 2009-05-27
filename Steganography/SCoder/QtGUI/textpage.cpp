@@ -1,7 +1,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "textpage.h"
-#include "wizard.h"
+
+////////////////////////////////////////////////////////////////////////////////
 
 #include <QTextEdit>
 #include <QVBoxLayout>
@@ -18,6 +19,9 @@ TextPage::TextPage( QWidget* _parent /* = NULL */ )
     // Create layout
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(m_Text);
+
+    // Register field
+    registerField( "Text*", m_Text, "plainText", SIGNAL(textChanged()) );
 
     setLayout(layout);
 }

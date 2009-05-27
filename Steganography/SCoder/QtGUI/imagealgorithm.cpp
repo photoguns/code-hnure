@@ -2,9 +2,11 @@
 
 #include "imagealgorithm.h"
 
+////////////////////////////////////////////////////////////////////////////////
+
 #include <QRadioButton>
 #include <QVBoxLayout>
-
+#include <QVariant>
 #include <cassert>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -13,17 +15,20 @@
 ImageAlgorithm::ImageAlgorithm( QWidget* _parent /* = NULL */ )
 : ChooseAlgorithmPage(_parent)
 {
-    m_LSB      = new QRadioButton(tr("&LSB"));
-    m_PRI      = new QRadioButton(tr("&PRI"));
-    m_PRS      = new QRadioButton(tr("&PRS"));
-    m_Block    = new QRadioButton(tr("&Block"));
-    m_Quant    = new QRadioButton(tr("&Quant"));
+    // Create radio buttons
+    m_LSB      = new QRadioButton(tr("&Least Significant Bit"));
+    m_PRI      = new QRadioButton(tr("&Pseudo-random interval"));
+    m_PRS      = new QRadioButton(tr("&Pseudo-random &substitution"));
+    m_Block    = new QRadioButton(tr("&Blocking"));
+    m_Quant    = new QRadioButton(tr("&Quantization"));
     m_Cross    = new QRadioButton(tr("&Cross"));
     m_KochZhao = new QRadioButton(tr("&Koch-Zhao"));
 
+    // Set LSB default algoruthm
     m_LSB->setChecked(true);
-    QVBoxLayout *layout = new QVBoxLayout;
 
+    // Setup layout
+    QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(m_LSB);
     layout->addWidget(m_PRI);
     layout->addWidget(m_PRS);
@@ -31,7 +36,6 @@ ImageAlgorithm::ImageAlgorithm( QWidget* _parent /* = NULL */ )
     layout->addWidget(m_Quant);
     layout->addWidget(m_Cross);
     layout->addWidget(m_KochZhao);
-
     setLayout(layout);
 }
 
@@ -49,36 +53,46 @@ ImageAlgorithm::~ImageAlgorithm()
 
 bool ImageAlgorithm::NeedsKey() const
 {
-    return !m_LSB->isChecked()   &&
-           !m_Cross->isChecked();
+    // Get coder type
+    CoderType coderType = static_cast<CoderType>( field("CoderType").toInt() );
+
+    // Only LSB and CROSS algorithms do not need key
+    return coderType != LSB && coderType != CROSS;
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-CoderType ImageAlgorithm::GetCoderType() const
+bool ImageAlgorithm::validatePage()
 {
+    CoderType coderType = INVALID;
+
+    // Determine coder type
     if ( m_LSB->isChecked() )
-        return LSB;
+        coderType = LSB;
     else if (m_PRS->isChecked() )
-        return PRS;
-    else if (m_PRS->isChecked() )
-        return PRI;
+        coderType = PRS;
+    else if (m_PRI->isChecked() )
+        coderType = PRI;
     else if (m_Block->isChecked() )
-        return BLOCK;
+        coderType = BLOCK;
     else if (m_Quant->isChecked() )
-        return QUANT;
+        coderType = QUANT;
     else if (m_Block->isChecked() )
-        return BLOCK;
+        coderType = BLOCK;
     else if (m_Cross->isChecked() )
-        return CROSS;
+        coderType = CROSS;
     else if (m_KochZhao->isChecked() )
-        return KOCHZHAO;
-    else
-    {
-        assert(0);
-        return INVALID;
-    }
+        coderType = KOCHZHAO;
+
+    assert(coderType != INVALID);
+
+    // Set coder type field
+    setField("CoderType", static_cast<int>(coderType) );
+
+    // Go to next page
+    return true;
 }
 
 

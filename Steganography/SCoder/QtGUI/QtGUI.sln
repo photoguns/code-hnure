@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QtGUI", "QtGUI.vcproj", "{BB254231-8B16-3A7E-AC31-0E5B38231A90}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QtGUI", "QtGUI.vcproj", "{4C143C61-B754-3FA9-A155-A912835F340B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BB254231-8B16-3A7E-AC31-0E5B38231A90}.Debug|Win32.ActiveCfg = Debug|Win32
-		{BB254231-8B16-3A7E-AC31-0E5B38231A90}.Debug|Win32.Build.0 = Debug|Win32
-		{BB254231-8B16-3A7E-AC31-0E5B38231A90}.Release|Win32.ActiveCfg = Release|Win32
-		{BB254231-8B16-3A7E-AC31-0E5B38231A90}.Release|Win32.Build.0 = Release|Win32
+		{4C143C61-B754-3FA9-A155-A912835F340B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4C143C61-B754-3FA9-A155-A912835F340B}.Debug|Win32.Build.0 = Debug|Win32
+		{4C143C61-B754-3FA9-A155-A912835F340B}.Release|Win32.ActiveCfg = Release|Win32
+		{4C143C61-B754-3FA9-A155-A912835F340B}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

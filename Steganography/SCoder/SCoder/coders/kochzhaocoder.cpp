@@ -13,7 +13,7 @@
 KochZhaoCoder::KochZhaoCoder()
 //Increase this parameter if text is not recognized properly
 //May be increased up to 255
-:m_Threshold(150),
+:m_Threshold(160),
 m_C1(NULL),
 m_C2(NULL)
 {
