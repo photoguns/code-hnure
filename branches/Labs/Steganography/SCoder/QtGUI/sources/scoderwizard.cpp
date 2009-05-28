@@ -16,6 +16,7 @@
 
 #include <QVariant>
 #include <cassert>
+#include <QMessageBox>
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -24,7 +25,7 @@ SCoderWizard::SCoderWizard( QWidget* _parent /* = NULL */ )
 : QWizard(_parent)
 {
     // Set Wizard window title
-    setWindowTitle(tr("SCoder Wizard"));
+    setWindowTitle(tr("SCoder"));
 
     // Yo yo yo check this out
     setWizardStyle(ClassicStyle);
@@ -42,6 +43,9 @@ SCoderWizard::SCoderWizard( QWidget* _parent /* = NULL */ )
 
     // Set start page
     setStartId(INTRO_PAGE);
+
+    setOption(HaveHelpButton, true);
+    connect(this, SIGNAL(helpRequested()), this, SLOT(ShowHelp()));
 }
 
 
@@ -50,6 +54,44 @@ SCoderWizard::SCoderWizard( QWidget* _parent /* = NULL */ )
 
 SCoderWizard::~SCoderWizard()
 {
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+void SCoderWizard::ShowHelp()
+{
+    QString message;
+
+    switch ( currentId() )
+    {
+    case INTRO_PAGE:
+         message = tr("If you want to inject some text into picture or sound"
+             " - check \"Hide Message\" radio button. If you want to get text,"
+             " which has already been injected into container - check \"Get Message\" radio button");
+         break;
+     case OPEN_CONTAINER_PAGE:
+         message = tr("Make sure to open a valid email container, such as BMP image ro WAV sound.");
+         break;
+     case SAVE_CONTAINER_PAGE:
+         message = tr("Make sure not to save container into the same file you have opened.");
+         break;
+     case IMAGE_ALGORITHM:
+         message = tr("Least Significant Bit algorithm simply changes least significant bits of "
+             "pixels (3 in each -- in red, green and blue byte. It does not need a key and has a "
+             "very simple realization, but can be broken by compressing picture, or resetting all LSB's in the picture.");
+         break;
+     case SOUND_ALGORITHM:
+         message = tr("Least Significant Bit algorithm simply changes least significant bits of "
+             "samples. It does not need a key and has a very simple realization, but can be broken "
+             "by compressing sound, or resetting all LSB's in the sound.");
+         break;
+     default:
+         message = tr("This help is likely not to be of any help.");
+    }
+
+    QMessageBox::information(this, tr("SCoder Help"), message);
 }
 
 
