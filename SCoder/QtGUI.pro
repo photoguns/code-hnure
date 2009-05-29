@@ -2,6 +2,8 @@
 # Project created by QtCreator 2009-05-24T22:08:58
 # -------------------------------------------------
 TARGET = LaunchSCoder
+CONFIG -= release
+CONFIG += debug
 TEMPLATE = app
 INCLUDEPATH +=        \
     QtGUI/headers     \
@@ -14,7 +16,7 @@ INCLUDEPATH +=        \
     MD5
 
 unix {
-    LIBS += /usr/lib/libsndfile.so
+    LIBS += -L/usr/lib -lsndfile
 }
 
 win32 {
@@ -104,3 +106,5 @@ HEADERS +=                                         \
     SCoder/keys/key.h                     \
     SCoder/keys/blockkey.h                \
     SCoder/keys/echokey.h
+
+TRANSLATIONS = scoder_ru.ts
